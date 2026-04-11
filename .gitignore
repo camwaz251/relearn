@@ -1,0 +1,15 @@
+# Books — too large for git
+tracks/*/knowledge/*.pdf
+
+# Generated PDFs from LaTeX source
+tracks/electronics/material/**/notes.pdf
+
+# External symlink — points outside repo
+tracks/c-programming/projects/stm32-workspace
+
+# Compiled C binaries in projects/
+tracks/c-programming/projects/*/*
+!tracks/c-programming/projects/*/*.c
+!tracks/c-programming/projects/*/*.h
+!tracks/c-programming/projects/*/*.md
+!tracks/c-programming/projects/*/Makefile

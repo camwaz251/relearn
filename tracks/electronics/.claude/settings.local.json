@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex --version)",
+      "Bash(pdflatex -interaction=nonstopmode notes.tex)",
+      "Bash(pdftotext \"/home/1625112148/Learning/refresh/tracks/electronics/knowledge/The Art of Electronics 3rd ed [2015].pdf\" -)"
+    ]
+  }
+}

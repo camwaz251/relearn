@@ -1,0 +1,77 @@
+" ── General ──────────────────────────────────────────────────────────────────
+set nocompatible
+set encoding=utf-8
+set history=200
+set backspace=indent,eol,start   " sane backspace
+
+" ── Display ───────────────────────────────────────────────────────────────────
+set number                       " line numbers
+" set relativenumber              " relative line numbers (great for motions)
+set cursorline                   " highlight current line
+set showmatch                    " flash matching bracket/paren
+set laststatus=2                 " always show statusline
+set ruler
+set wildmenu                     " tab-complete in command mode
+set scrolloff=5                  " keep 5 lines visible above/below cursor
+
+" ── C Indentation ─────────────────────────────────────────────────────────────
+set tabstop=4
+set shiftwidth=4
+set expandtab                    " spaces, not tabs
+set autoindent
+set smartindent                  " understands C block structure
+set cindent                      " C-aware indentation
+set cinoptions=:0,l1,g0,t0      " align cases, labels, braces cleanly
+
+" ── Search ────────────────────────────────────────────────────────────────────
+set hlsearch                     " highlight matches
+set incsearch                    " search as you type
+set ignorecase
+set smartcase                    " case-sensitive if uppercase used
+nnoremap <Esc><Esc> :nohlsearch<CR>  " clear highlight with double-Esc
+
+" ── C File Settings ───────────────────────────────────────────────────────────
+augroup c_settings
+    autocmd!
+    autocmd FileType c setlocal colorcolumn=80   " flag lines over 80 chars
+    autocmd FileType c setlocal textwidth=80
+    autocmd FileType c setlocal formatoptions+=croq
+augroup END
+
+" ── Syntax & Colors ───────────────────────────────────────────────────────────
+syntax on
+set background=dark
+colorscheme desert               " built-in, works everywhere
+
+" ── Key Mappings ──────────────────────────────────────────────────────────────
+let mapleader = " "
+
+" Compile and run current C file
+" nnoremap <leader>m :w<CR>:!gcc -Wall -Wextra -g -o %:r % && echo "OK"<CR>
+" nnoremap <leader>r :!./%:r<CR>
+
+" Quick save
+" nnoremap <leader>w :w<CR>
+
+" Toggle between .c and .h
+" nnoremap <leader>h :e %:r.h<CR>
+" nnoremap <leader>c :e %:r.c<CR>
+
+" Navigate splits
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+
+" ── Auto-pairs ────────────────────────────────────────────────────────────────
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap {<CR> {<CR>}<Esc>O
+inoremap " ""<Left>
+inoremap ' ''<Left>
+
+" Skip over closing bracket if already present (don't double up)
+inoremap <expr> ) getline('.')[col('.')-1] == ')' ? "\<Right>" : ")"
+inoremap <expr> ] getline('.')[col('.')-1] == ']' ? "\<Right>" : "]"
+inoremap <expr> } getline('.')[col('.')-1] == '}' ? "\<Right>" : "}"

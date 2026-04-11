@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ping:*)",
+      "Bash(curl:*)",
+      "Bash(git --version)",
+      "Bash(find:*)",
+      "Bash(wc -l /home/1625112148/Learning/refresh/tracks/*/knowledge/*.pdf)",
+      "Bash(du:*)"
+    ]
+  }
+}
