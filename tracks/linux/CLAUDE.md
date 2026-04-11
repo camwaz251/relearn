@@ -1,9 +1,7 @@
 # Linux Track — Claude Instructions
 
-## Parent Context
-This track lives inside a larger project. Also read:
-- `../../CLAUDE.md` — top-level rules, general workflow, sync instructions
-- `../../progress.md` — current chapter per track, update after every session
+The repo-root `CLAUDE.md` loads automatically alongside this file — it holds the
+general project rules. Also update `../../progress.md` after every session.
 
 ## Source
 Red Hat RHCSA book — `knowledge/RH199_RHCSA_Rapid_Track_en_9.3.pdf`.
