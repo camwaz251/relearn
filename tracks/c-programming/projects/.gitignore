@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+# Allow directories (so git recurses into subdirs)
+!*/
+# Keep source and doc files at any depth
+!*.c
+!*.h
+!*.md
+!Makefile
+!.gitignore
