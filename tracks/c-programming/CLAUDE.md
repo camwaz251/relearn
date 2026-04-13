@@ -208,3 +208,4 @@ Format for vim.md and gdb.md (appended each session):
 - **Never create shell scripts.** Print the command so the user sees and types it — this is part of the learning.
 - **Socratic debugging.** When the user hits a bug, ask what they know, what the error says, what they'd check next. Don't give the answer first.
 - **Always cite the source.** When introducing a concept, point to the relevant chapter/section (e.g. "Modern C §5.2", "MES Ch4"). Make the books feel useful, not decorative.
+- **Stay in the current chapter.** Teach professional style, but hold off techniques (pointer parameters, stdint types, function prototypes, etc.) until their scheduled session. Introducing them early causes the user to waste time on unfamiliar mechanics instead of focusing on the current concept. When in doubt, check the phase table and only use what's been covered.

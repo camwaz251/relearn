@@ -70,3 +70,6 @@ Each track has its own `CLAUDE.md` that points back here.
 - Editor: Vim (user is learning — use it for all C coding sessions)
 - Debugger: GDB (user is learning — use it for all C debugging sessions, always compile with `-g`)
 - vimrc: lives at `~/.vimrc`, backup at `tracks/c-programming/vimrc.bak`. C-optimized. Update both when changes are made.
+
+## Sync
+- Project is on GitHub. Push from `~/Learning/refresh/` with `git push`.
