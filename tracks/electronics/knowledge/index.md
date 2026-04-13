@@ -1,4 +1,10 @@
-# Electronics — Chapter Index
+# Electronics — Knowledge Index
+
+## Sources
+- **The Art of Electronics, 3rd ed. (2015)** — primary text. Chapter status below.
+- **Encyclopedia of Electronic Circuits, Vol. 1 (Graf)** — circuit cookbook reference. See [`encyclopedia-vol1-index.md`](encyclopedia-vol1-index.md) for clickable chapter links.
+
+## Art of Electronics — Chapter Status
 
 Status: `done` / `in-progress` / `not started`
 

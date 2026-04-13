@@ -3,7 +3,19 @@
     "allow": [
       "Bash(pdflatex --version)",
       "Bash(pdflatex -interaction=nonstopmode notes.tex)",
-      "Bash(pdftotext \"/home/1625112148/Learning/refresh/tracks/electronics/knowledge/The Art of Electronics 3rd ed [2015].pdf\" -)"
+      "Bash(pdftotext \"/home/1625112148/Learning/refresh/tracks/electronics/knowledge/The Art of Electronics 3rd ed [2015].pdf\" -)",
+      "Bash(mv \"/home/cam/Downloads/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf\" \"/home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf\")",
+      "Bash(ln -s \"/home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf\" \"/home/cam/Projects/relearn/tracks/electronics/knowledge/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf\")",
+      "Bash(python3 -c \"import pikepdf; print\\(pikepdf.__version__\\)\")",
+      "Bash(python3 -c \"import pypdf; print\\(pypdf.__version__\\)\")",
+      "Bash(mkdir -p /home/cam/Projects/relearn/tracks/electronics/scripts)",
+      "Bash(uv venv:*)",
+      "Bash(.venv/bin/pip install:*)",
+      "Bash(uv pip:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(qpdf --show-pages /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp)",
+      "Bash(qpdf --json /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp --json-key=pagelabels)",
+      "Bash(qpdf --show-outline /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp)"
     ]
   }
 }

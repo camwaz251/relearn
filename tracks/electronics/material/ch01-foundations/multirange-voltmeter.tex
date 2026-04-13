@@ -1,0 +1,192 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{microtype}
+
+% Colors (match notes.tex)
+\definecolor{intuition}{RGB}{0,50,130}
+\definecolor{key}{RGB}{130,50,0}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries}{}{0em}{}[\vspace{-0.5em}\rule{\textwidth}{0.4pt}]
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+% Header/footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Art of Electronics --- Ch.\ 1, Exercise 1.8 extension}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\intuition}[1]{\par\textcolor{intuition}{\textbf{Intuition:}} #1}
+\newcommand{\keynote}[1]{\par\textcolor{key}{\textbf{Key:}} #1}
+
+\title{\vspace{-2em}\textbf{Multi-Range Voltmeter Design}\\
+       \large Extending Exercise 1.8 with a tapped multiplier string}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3em}
+
+\section*{The fixed anchor: the movement}
+
+The movement never changes between ranges. It always pegs at full-scale when:
+\[
+I_{\text{FS}} = 50\ \mu\text{A} \quad\text{flowing through}\quad R_m = 5\ \text{k}\Omega
+\]
+\[
+V_{\text{across movement, full-scale}} = I_{\text{FS}} \cdot R_m = 50\ \mu\text{A} \cdot 5\ \text{k}\Omega = 0.25\ \text{V}
+\]
+
+Every range you design has to satisfy this same condition. The voltmeter is just whatever external resistance puts exactly $50\ \mu\text{A}$ through the movement when the input equals that range's full-scale voltage.
+
+\section*{Per-range total resistance}
+
+Let $V_n$ be the full-scale voltage of range $n$, and $T_n$ be the \emph{external} resistance the design must provide on that range (i.e.\ everything in series with the movement). Ohm's law on the whole loop:
+\[
+V_n = I_{\text{FS}} \cdot (T_n + R_m)
+\quad\Longrightarrow\quad
+\boxed{\;T_n = \dfrac{V_n}{I_{\text{FS}}} - R_m\;}
+\]
+
+For the four target ranges $V_n \in \{1, 10, 100, 1000\}$ V:
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$n$ & $V_n$ (V) & $V_n / I_{\text{FS}}$ & $T_n = V_n/I_{\text{FS}} - R_m$ \\
+\midrule
+1 & 1     & 20\ k$\Omega$    & 15\ k$\Omega$    \\
+2 & 10    & 200\ k$\Omega$   & 195\ k$\Omega$   \\
+3 & 100   & 2\ M$\Omega$     & 1.995\ M$\Omega$ \\
+4 & 1000  & 20\ M$\Omega$    & 19.995\ M$\Omega$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\keynote{These totals are pure physics. They're identical for any topology --- option A (independent multipliers) or option B (tapped string). Only the way you split them up changes.}
+
+\section*{Topology: tapped string}
+
+Wire all the multiplier resistors as one continuous chain with the movement permanently at the bottom. The rotary switch picks where the input wire \emph{enters} the chain:
+
+\begin{verbatim}
+   Input  ----o tap V_4 (1000 V)
+              |
+             R_4
+              |
+              o tap V_3 (100 V)
+              |
+             R_3
+              |
+              o tap V_2 (10 V)
+              |
+             R_2
+              |
+              o tap V_1 (1 V)
+              |
+             R_1
+              |
+           [Movement, R_m = 5 k]
+              |
+             GND
+\end{verbatim}
+
+On range $n$, the current path is: input $\to$ down through $R_n, R_{n-1}, \ldots, R_1$ $\to$ through the movement $\to$ ground. Each higher range \emph{adds} one resistor on top of the previous range; nothing is ever swapped out.
+
+\section*{Form 1 --- the recurrence}
+
+On range $n$, the resistors in the path sum to $T_n$:
+\[
+R_1 + R_2 + \cdots + R_n = T_n
+\]
+Solving for the new resistor introduced on range $n$:
+\[
+R_n = T_n - \sum_{i=1}^{n-1} R_i
+\quad\text{with base case}\quad R_1 = T_1
+\]
+
+This is the ``subtract everything I've already placed'' form. Compute step by step:
+\begin{align*}
+R_1 &= T_1 = 15\ \text{k}\Omega \\
+R_2 &= T_2 - R_1 = 195\ \text{k} - 15\ \text{k} = 180\ \text{k}\Omega \\
+R_3 &= T_3 - (R_1 + R_2) = 1.995\ \text{M} - 195\ \text{k} = 1.8\ \text{M}\Omega \\
+R_4 &= T_4 - (R_1 + R_2 + R_3) = 19.995\ \text{M} - 1.995\ \text{M} = 18\ \text{M}\Omega
+\end{align*}
+
+\section*{Form 2 --- collapse to a difference}
+
+Notice that $\displaystyle\sum_{i=1}^{n-1} R_i$ is exactly $T_{n-1}$ (the previous range's total). The recurrence collapses to a simple difference:
+\[
+\boxed{\;R_n = T_n - T_{n-1} \quad (n \geq 2), \qquad R_1 = T_1\;}
+\]
+
+Substitute $T_n = V_n / I_{\text{FS}} - R_m$ into the difference and watch the $R_m$ terms cancel:
+\[
+R_n = \frac{V_n}{I_{\text{FS}}} - R_m - \left(\frac{V_{n-1}}{I_{\text{FS}}} - R_m\right) = \frac{V_n - V_{n-1}}{I_{\text{FS}}}
+\]
+
+So the closed form is:
+\[
+\boxed{\;R_1 = \dfrac{V_1}{I_{\text{FS}}} - R_m, \qquad R_n = \dfrac{V_n - V_{n-1}}{I_{\text{FS}}}\ \ (n \geq 2)\;}
+\]
+
+\intuition{Only $R_1$ has $R_m$ in it. The movement is shared across every range --- it sits at the bottom of the chain --- so it only gets ``charged against'' the lowest range. Every other resistor in the chain just bridges the gap between consecutive full-scale voltages, with no movement term at all. That's the mathematical fingerprint of the shared-movement topology.}
+
+\section*{Final values}
+
+\begin{center}
+\begin{tabular}{ccll}
+\toprule
+$n$ & range & expression & value \\
+\midrule
+1 & 1 V    & $1/(50\ \mu\text{A}) - 5\ \text{k}$    & $15\ \text{k}\Omega$ \\
+2 & 10 V   & $(10-1)/(50\ \mu\text{A}) = 9/(50\ \mu\text{A})$    & $180\ \text{k}\Omega$ \\
+3 & 100 V  & $(100-10)/(50\ \mu\text{A}) = 90/(50\ \mu\text{A})$  & $1.8\ \text{M}\Omega$ \\
+4 & 1000 V & $(1000-100)/(50\ \mu\text{A}) = 900/(50\ \mu\text{A})$ & $18\ \text{M}\Omega$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Sanity check:}
+\[
+R_1 + R_2 + R_3 + R_4 = 15\ \text{k} + 180\ \text{k} + 1.8\ \text{M} + 18\ \text{M} = 19.995\ \text{M}\Omega = T_4 \checkmark
+\]
+
+\section*{Comparison: Option A vs Option B}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+range & Option A (independent) & Option B (tapped string) \\
+\midrule
+1 V    & 15\ k$\Omega$       & 15\ k$\Omega$    \\
+10 V   & 195\ k$\Omega$      & 180\ k$\Omega$   \\
+100 V  & 1.995\ M$\Omega$    & 1.8\ M$\Omega$   \\
+1000 V & 19.995\ M$\Omega$   & 18\ M$\Omega$    \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$R_1$ is identical in both topologies (it serves the same physical role --- it's the only thing in series with the movement on the lowest range). Above that, option B's resistors are smaller because each one only has to bridge the \emph{gap} to the next range, not provide the whole range's resistance from scratch. As a bonus, $180\ \text{k}$, $1.8\ \text{M}$, $18\ \text{M}$ are all standard E-series 1\% values --- much easier to source than $195\ \text{k}$ or $1.995\ \text{M}$, which would have to be custom or built from combinations.
+
+\section*{What to verify in Falstad}
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item Wire the four resistors in a vertical chain with the movement at the bottom (ground end).
+  \item Place a switch tap at each junction between resistors, plus one at the very top (above $R_4$).
+  \item Connect the test source to the selected tap.
+  \item For each range, sweep the source from 0 to $V_n$ and confirm the movement reads full-scale exactly at $V_n$.
+  \item Cross-check: with the 1 V tap selected and 1 V applied, the movement should be at full-scale. With the 10 V tap selected and 10 V applied, also full-scale. Same needle position, very different input.
+\end{enumerate}
+
+\end{document}

@@ -2,7 +2,7 @@
 tracks/*/knowledge/*.pdf
 
 # Generated PDFs from LaTeX source
-tracks/electronics/material/**/notes.pdf
+tracks/electronics/material/**/*.pdf
 
 # External symlink — points outside repo
 tracks/c-programming/projects/stm32-workspace
