@@ -4,6 +4,10 @@ tracks/*/knowledge/*.pdf
 # Generated PDFs from LaTeX source
 tracks/electronics/material/**/*.pdf
 
+# LaTeX build artifacts
+tracks/electronics/material/**/*.aux
+tracks/electronics/material/**/*.log
+
 # External symlink — points outside repo
 tracks/c-programming/projects/stm32-workspace
 
