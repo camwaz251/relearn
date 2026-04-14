@@ -7,7 +7,7 @@ Source: `RH199_RHCSA_Rapid_Track_en_9.3.pdf`
 | 1 | Access Systems and Get Support | 1 |
 | 2 | Manage Files from the Command Line | 37 |
 | 3 | Manage Local Users and Groups | 71 |
-| 4 | Control Access to Files | 117 |
+| 4 | Control Access to Files | 117 | done |
 | 5 | Manage SELinux Security | 143 |
 | 6 | Tune System Performance | 181 |
 | 7 | Schedule Future Tasks | 227 |

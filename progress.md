@@ -21,5 +21,6 @@ Last updated: 2026-04-14
 - Last session: 2026-03-18 — Ch. 1 notes + progressions created
 
 ## Linux
-- Current: Ch. 3 — Manage Local Users and Groups — **material written** (summary, exercises, labs ready — work through on VM)
-- Last session: 2026-03-18 — Ch. 3 material created
+- Current: Ch. 4 — Control Access to Files — **material written** (summary, exercises, labs ready — work through on VM)
+- Next: Ch. 5 — Manage SELinux Security
+- Last session: 2026-04-14 — Ch. 4 material created

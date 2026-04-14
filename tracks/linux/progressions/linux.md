@@ -32,3 +32,23 @@
 | `/etc/login.defs` | Default UID/GID ranges and password policy |
 | `wheel` group | Members get sudo access by default (RHEL 7+) |
 | `NOPASSWD:` | Sudoers keyword to skip password prompt |
+
+## Ch. 4 — Control Access to Files
+*New this session:*
+
+| Command/Concept | What it does |
+|----------------|-------------|
+| `chmod Who/What/Which file` | Change permissions (symbolic: u/g/o/a, +/-/=, r/w/x/X) |
+| `chmod ### file` | Change permissions (octal: r=4 w=2 x=1, three digits for u/g/o) |
+| `chmod -R` | Recursively apply permissions to directory tree |
+| `chown user file` | Change file user owner (root only) |
+| `chown :group file` | Change file group owner (use colon, not dot) |
+| `chown user:group file` | Change both owner and group at once |
+| `chgrp group file` | Change group owner only |
+| `umask` | Display current permission mask for new files/dirs |
+| `umask NNN` | Set umask for current shell session |
+| setuid (`u+s`, octal 4) | File runs as file owner; no dir effect |
+| setgid (`g+s`, octal 2) | File runs as file group; dir: new files inherit dir's group |
+| sticky (`o+t`, octal 1) | Dir: only file owner can delete their own files |
+| `chmod 2770 dir` | setgid + rwx for owner/group, none for other |
+| `/etc/login.defs` UMASK | System-wide default umask for login shells |

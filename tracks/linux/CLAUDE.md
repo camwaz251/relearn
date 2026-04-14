@@ -7,7 +7,7 @@ general project rules. Also update `../../progress.md` after every session.
 Red Hat RHCSA book — `knowledge/RH199_RHCSA_Rapid_Track_en_9.3.pdf`.
 
 ## Background
-User is prepping for RHCSA certification. Has the Red Hat book. Uses a Red Hat VM for hands-on work.
+User is prepping for RHCSA certification. Has the Red Hat book. Uses the Red Hat learning environment with specific servers: **workstation** (where `lab` commands are run), **servera**, and **serverb**. Labs require running `lab start <name>` on workstation first, then SSHing into the specified server.
 
 ---
 
@@ -25,10 +25,11 @@ progressions/       — skill/concept progression tracking
 
 1. User says which chapter.
 2. **Enter plan mode first.** Read the chapter from the Red Hat PDF, then present a plan: what topics will be covered, how the summary/exercises/labs will be structured, and which RHCSA objectives this chapter maps to. User confirms or adjusts before you write anything.
-3. Write three files in `material/chXX-<name>/`:
+3. Write four files in `material/chXX-<name>/`:
    - `summary.md` — clean, stripped-down topic summary
    - `exercises.md` — reformatted exercises from the book, answers at the end
    - `labs.md` — reformatted labs, NO answers (intentional — for practice)
+   - `labs-answers.md` — lab solutions from the book, clean and easy to read
 4. Append new commands/concepts to `progressions/linux.md`.
 5. User uses the Red Hat VM for actual hands-on work.
 
@@ -69,17 +70,25 @@ progressions/       — skill/concept progression tracking
 
 ## labs.md Format
 
+- Always include the `lab start <name>` command from the book — this sets up the Red Hat learning environment.
+- Always specify the exact server to SSH into (workstation, servera, serverb — varies by chapter).
+- Always include `lab grade <name>` and `lab finish <name>` at the end (run on workstation). Guided exercises only have start/finish, no grade.
+- Keep formatting minimal. No bold headers for Objectives/Steps — plain text and numbered lists are fine.
+- The goal is a clean, easy-to-read version of the book lab, not a re-formatted replica.
+
 ```markdown
 # Chapter X — Labs
 
 ### Lab 1
-<clean restatement of the lab>
+<one-line summary of what this lab does>
 
-**Objectives:**
+Run `lab start <name>` on workstation before starting.
+
+Objectives:
 - ...
 
-**Steps:**
-1. ...
+1. SSH to <server> as student. Switch to root.
+2. ...
 
 *No answers provided — work through on your Red Hat VM.*
 ```
@@ -198,7 +207,7 @@ Format (appended each session):
 ---
 
 ## Rules
-- No answers in `labs.md` — ever.
+- No answers in `labs.md` — ever. Answers go in `labs-answers.md`.
 - Answers go at the END of `exercises.md` as a separate section (so user can attempt first).
 - Keep summaries tight. If a concept needs a paragraph, that's the max.
 - Update `../../progress.md` after each session.
