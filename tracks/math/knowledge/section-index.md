@@ -1,0 +1,542 @@
+# Section Index
+
+Line numbers for `pdftotext` output. Use with:
+`pdftotext <file> - | sed -n 'L<start>,L<end>p'`
+
+---
+
+## algebra-trig-review/notes.pdf
+
+- L1055: Chapter 1 : Algebra
+- L1058: 1.1 : Exponents
+- L1208: 1.2 : Absolute Value
+- L1363: 1.3 : Radicals
+- L1731: 1.4 : Rationalizing
+- L1802: 1.5 : Functions
+- L1990: 1.6 : Multiplying Polynomials
+- L2145: 1.7 : Factoring
+- L2183: 1.8 : Simplifying Rational Expressions
+- L2236: 1.9 : Graphing and Common Graphs
+- L2660: 1.10 : Solving Equations, Part I
+- L2767: 1.11 : Solving Equations, Part II
+- L2828: 1.12 : Solving Systems of Equations
+- L3012: 1.13 : Solving Inequalities
+- L3225: 1.14 : Absolute Value Equations and Inequalities
+- L3553: Chapter 2 : Trigonometry
+- L3555: 2.1 : Trig Function Evaluation
+- L3908: 2.2 : Graphs of Trig Functions
+- L4171: 2.3 : Trig Formulas
+- L4365: 2.4 : Solving Trig Equations
+- L5411: 2.5 : Inverse Trig Functions
+- L5845: Chapter 3 : Exponentials & Logarithms
+- L5847: 3.1 : Basic Exponential Functions
+- L5968: 3.2 : Basic Logarithmic Functions
+- L6077: 3.3 : Logarithm Properties
+- L6308: 3.4 : Simplifying Logarithms
+- L6352: 3.5 : Solving Exponential Equations
+- L6628: 3.6 : Solving Logarithm Equations
+
+---
+
+## algebra-trig-review/practice-problems.pdf
+
+- L1006: Chapter 1 : Algebra
+- L1018: 1.4 : Rationalizing
+- L1098: 1.6 : Multiplying Polynomials
+- L1149: 1.8 : Simplifying Rational Expressions
+- L1205: 1.10 : Solving Equations, Part I
+- L1204: 1.11 : Solving Equations, Part II
+- L1244: 1.13 : Solving Inequalities
+- L1351: Chapter 2 : Trigonometry
+- L1353: 2.1 : Trig Function Evaluation
+- L1406: 2.2 : Graphs of Trig Functions
+- L1492: 2.3 : Trig Formulas
+- L1538: 2.5 : Inverse Trig Functions
+- L1719: Chapter 3 : Exponentials & Logarithms
+- L1721: 3.2 : Basic Logarithmic Functions
+- L1782: 3.4 : Simplifying Logarithms
+
+---
+
+## algebra/notes.pdf
+
+- L2065: Chapter 1 : Preliminaries
+- L2067: 1.1 : Integer Exponents
+- L2689: 1.2 : Rational Exponents
+- L3212: 1.3 : Radicals
+- L4164: 1.4 : Polynomials
+- L4527: 1.5 : Factoring Polynomials
+- L5110: 1.6 : Rational Expressions
+- L6088: 1.7 : Complex Numbers
+- L6637: Chapter 2 : Solving
+- L6639: 2.1 : Solutions and Solution Sets
+- L6832: 2.2 : Linear Equations
+- L7398: 2.3 : Applications of Linear Equations
+- L8156: 2.4 : Equations With More Than One Variable
+- L8436: 2.5 : Quadratic Equations - Part I
+- L9013: 2.6 : Quadratic Equations - Part II
+- L9893: 2.7 : Quadratic Equations : A Summary
+- L10070: 2.8 : Applications of Quadratic Equations
+- L10370: 2.9 : Equations Reducible to Quadratic in Form
+- L10792: 2.10 : Equations with Radicals
+- L11277: 2.11 : Linear Inequalities
+- L11667: 2.12 : Polynomial Inequalities
+- L11941: 2.13 : Rational Inequalities
+- L12230: 2.14 : Absolute Value Equations
+- L12740: 2.15 : Absolute Value Inequalities
+- L13072: Chapter 3 : Graphing and Functions
+- L13074: 3.1 : Graphing
+- L13389: 3.2 : Lines
+- L13976: 3.3 : Circles
+- L14249: 3.4 : The Definition of a Function
+- L15050: 3.5 : Graphing Functions
+- L15283: 3.6 : Combining Functions
+- L15702: 3.7 : Inverse Functions
+- L16146: Chapter 4 : Common Graphs
+- L16148: 4.1 : Lines, Circles and Piecewise Functions
+- L16166: 4.2 : Parabolas
+- L16672: 4.3 : Ellipses
+- L16850: 4.4 : Hyperbolas
+- L17051: 4.5 : Miscellaneous Functions
+- L17188: 4.6 : Transformations
+- L17447: 4.7 : Symmetry
+- L17646: 4.8 : Rational Functions
+- L18055: Chapter 5 : Polynomial Functions
+- L18057: 5.1 : Dividing Polynomials
+- L18283: 5.2 : Zeroes/Roots of Polynomials
+- L18554: 5.3 : Graphing Polynomials
+- L18916: 5.4 : Finding Zeroes of Polynomials
+- L19453: 5.5 : Partial Fractions
+- L20073: Chapter 6 : Exp. and Log. Functions
+- L20075: 6.1 : Exponential Functions
+- L20356: 6.2 : Logarithm Functions
+- L21126: 6.3 : Solving Exponential Equations
+- L21545: 6.4 : Solving Logarithm Equations
+- L21888: 6.5 : Applications
+- L22335: Chapter 7 : Systems of Equations
+- L22337: 7.1 : Linear Systems with Two Variables
+- L22833: 7.2 : Linear Systems with Three Variables
+- L23097: 7.3 : Augmented Matrices
+- L24069: 7.4 : More on the Augmented Matrix
+- L24581: 7.5 : Nonlinear Systems
+
+---
+
+## algebra/practice-problems.pdf
+
+- L2033: Chapter 1 : Preliminaries
+- L2035: 1.1 : Integer Exponents
+- L2088: 1.2 : Rational Exponents
+- L2173: 1.3 : Radicals
+- L2296: 1.4 : Polynomials
+- L2350: 1.5 : Factoring Polynomials
+- L2395: 1.6 : Rational Expressions
+- L2494: 1.7 : Complex Numbers
+- L2552: Chapter 2 : Solving
+- L2554: 2.1 : Solutions and Solution Sets
+- L2581: 2.2 : Linear Equations
+- L2631: 2.3 : Applications of Linear Equations
+- L2664: 2.4 : Equations With More Than One Variable
+- L2718: 2.5 : Quadratic Equations - Part I
+- L2772: 2.6 : Quadratic Equations - Part II
+- L2803: 2.7 : Quadratic Equations : A Summary
+- L2822: 2.8 : Applications of Quadratic Equations
+- L2843: 2.9 : Equations Reducible to Quadratic in Form
+- L2882: 2.10 : Equations with Radicals
+- L2923: 2.11 : Linear Inequalities
+- L2959: 2.12 : Polynomial Inequalities
+- L2979: 2.13 : Rational Inequalities
+- L3026: 2.14 : Absolute Value Equations
+- L3075: 2.15 : Absolute Value Inequalities
+- L3118: Chapter 3 : Graphing and Functions
+- L3120: 3.1 : Graphing
+- L3151: 3.2 : Lines
+- L3186: 3.3 : Circles
+- L3217: 3.4 : The Definition of a Function
+- L3348: 3.5 : Graphing Functions
+- L3385: 3.6 : Combining Functions
+- L3446: 3.7 : Inverse Functions
+- L3500: Chapter 4 : Common Graphs
+- L3502: 4.1 : Lines, Circles and Piecewise Functions
+- L3521: 4.2 : Parabolas
+- L3548: 4.3 : Ellipses
+- L3584: 4.4 : Hyperbolas
+- L3623: 4.5 : Miscellaneous Functions
+- L3639: 4.6 : Transformations
+- L3670: 4.7 : Symmetry
+- L3696: 4.8 : Rational Functions
+- L3749: Chapter 5 : Polynomial Functions
+- L3751: 5.1 : Dividing Polynomials
+- L3773: 5.2 : Zeroes/Roots of Polynomials
+- L3797: 5.3 : Graphing Polynomials
+- L3815: 5.4 : Finding Zeroes of Polynomials
+- L3833: 5.5 : Partial Fractions
+- L3917: Chapter 6 : Exp. and Log. Functions
+- L3919: 6.1 : Exponential Functions
+- L3970: 6.2 : Logarithm Functions
+- L4072: 6.3 : Solving Exponential Equations
+- L4097: 6.4 : Solving Logarithm Equations
+- L4122: 6.5 : Applications
+- L4181: Chapter 7 : Systems of Equations
+- L4183: 7.1 : Linear Systems with Two Variables
+- L4229: 7.2 : Linear Systems with Three Variables
+- L4249: 7.3 : Augmented Matrices
+- L4321: 7.4 : More on the Augmented Matrix
+- L4378: 7.5 : Nonlinear Systems
+
+---
+
+## calculus/notes.pdf
+
+- L6231: Chapter 1 : Review
+- L6233: 1.1 : Functions
+- L6870: 1.2 : Inverse Functions
+- L7286: 1.3 : Trig Functions
+- L7795: 1.4 : Solving Trig Equations
+- L8595: 1.5 : Solving Trig Equations with Calculators, Part I
+- L9484: 1.6 : Solving Trig Equations with Calculators, Part II
+- L9866: 1.7 : Exponential Functions
+- L10063: 1.8 : Logarithm Functions
+- L10536: 1.9 : Exponential and Logarithm Equations
+- L11012: 1.10 : Common Graphs
+- L11532: Chapter 2 : Limits
+- L11534: 2.1 : Tangent Lines and Rates of Change
+- L12006: 2.2 : The Limit
+- L12581: 2.3 : One-Sided Limits
+- L12991: 2.4 : Limit Properties
+- L13412: 2.5 : Computing Limits
+- L14021: 2.6 : Infinite Limits
+- L14730: 2.7 : Limits at Infinity, Part I
+- L15427: 2.8 : Limits at Infinity, Part II
+- L16162: 2.9 : Continuity
+- L16502: 2.10 : The Definition of the Limit
+- L17638: Chapter 3 : Derivatives
+- L17660: 3.1 : The Definition of the Derivative
+- L18134: 3.2 : Interpretation of the Derivative
+- L18576: 3.3 : Differentiation Formulas
+- L19119: 3.4 : Product and Quotient Rule
+- L19561: 3.5 : Derivatives of Trig Functions
+- L20322: 3.6 : Derivatives of Exponentials & Logarithms
+- L20670: 3.7 : Derivatives of Inverse Trig Functions
+- L21114: 3.8 : Derivatives of Hyperbolic Functions
+- L21261: 3.9 : Chain Rule
+- L22174: 3.10 : Implicit Differentiation
+- L22688: 3.11 : Related Rates
+- L23594: 3.12 : Higher Order Derivatives
+- L23890: 3.13 : Logarithmic Differentiation
+- L24159: Chapter 4 : Derivative Applications
+- L24179: 4.1 : Rates of Change
+- L24365: 4.2 : Critical Points
+- L24807: 4.3 : Minimum and Maximum Values
+- L25183: 4.4 : Finding Absolute Extrema
+- L25592: 4.5 : The Shape of a Graph, Part I
+- L26078: 4.6 : The Shape of a Graph, Part II
+- L26469: 4.7 : The Mean Value Theorem
+- L26797: 4.8 : Optimization
+- L27608: 4.9 : More Optimization
+- L28745: 4.10 : L'Hospital's Rule
+- L29270: 4.11 : Linear Approximations
+- L29414: 4.12 : Differentials
+- L29536: 4.13 : Newton's Method
+- L29740: 4.14 : Business Applications
+- L30126: Chapter 5 : Integrals
+- L30128: 5.1 : Indefinite Integrals
+- L30471: 5.2 : Computing Indefinite Integrals
+- L31270: 5.3 : Substitution Rule for Indefinite Integrals
+- L32416: 5.4 : More Substitution Rule
+- L33658: 5.5 : Area Problem
+- L34177: 5.6 : Definition of the Definite Integral
+- L35350: 5.7 : Computing Definite Integrals
+- L36699: 5.8 : Substitution Rule for Definite Integrals
+- L37989: Chapter 6 : Applications of Integrals
+- L37991: 6.1 : Average Function Value
+- L38191: 6.2 : Area Between Curves
+- L39053: 6.3 : Volume with Rings
+- L39578: 6.4 : Volume with Cylinders
+- L40018: 6.5 : More Volume Problems
+- L40679: 6.6 : Work
+- L41166: Chapter 7 : Integration Techniques
+- L41243: 7.1 : Integration by Parts
+- L42232: 7.2 : Integrals Involving Trig Functions
+- L43140: 7.3 : Trig Substitutions
+- L44664: 7.4 : Partial Fractions
+- L45560: 7.5 : Integrals Involving Roots
+- L45779: 7.6 : Integrals Involving Quadratics
+- L46873: 7.7 : Integration Strategy
+- L47371: 7.8 : Improper Integrals
+- L48231: 7.9 : Comparison Test for Improper Integrals
+- L48879: 7.10 : Approximating Definite Integrals
+- L49422: Chapter 8 : More Applications of Integrals
+- L49424: 8.1 : Arc Length
+- L50054: 8.2 : Surface Area
+- L50569: 8.3 : Center Of Mass
+- L50981: 8.4 : Hydrostatic Pressure and Force
+- L51286: 8.5 : Probability
+- L51633: Chapter 9 : Parametric and Polar
+- L51635: 9.1 : Parametric Equations
+- L52858: 9.2 : Tangents with Parametric Equations
+- L53378: 9.3 : Area with Parametric Equations
+- L53558: 9.4 : Arc Length with Parametric Equations
+- L53928: 9.5 : Surface Area with Parametric Equations
+- L54052: 9.6 : Polar Coordinates
+- L54583: 9.7 : Tangents with Polar Coordinates
+- L54741: 9.8 : Area with Polar Coordinates
+- L55170: 9.9 : Arc Length with Polar Coordinates
+- L55377: 9.10 : Surface Area with Polar Coordinates
+- L55445: 9.11 : Arc Length and Surface Area Revisited
+- L55590: Chapter 10 : Series and Sequences
+- L55592: 10.1 : Sequences
+- L56397: 10.2 : More on Sequences
+- L56789: 10.3 : Series - Basics
+- L57465: 10.4 : Convergence & Divergence of Series
+- L58229: 10.5 : Special Series
+- L59265: 10.6 : Integral Test
+- L60098: 10.7 : Comparison & Limit Comparison Test
+- L61158: 10.8 : Alternating Series Test
+- L61664: 10.9 : Absolute Convergence
+- L62022: 10.10 : Ratio Test
+- L62800: 10.11 : Root Test
+- L63161: 10.12 : Strategy for Series
+- L63377: 10.13 : Estimating the Value of a Series
+- L64356: 10.14 : Power Series
+- L65165: 10.15 : Power Series and Functions
+- L65795: 10.16 : Taylor Series
+- L66773: 10.17 : Applications of Series
+- L67158: 10.18 : Binomial Series
+- L67416: Chapter 11 : Vectors
+- L67418: 11.1 : Basic Concepts
+- L67670: 11.2 : Vector Arithmetic
+- L67983: 11.3 : Dot Product
+- L68608: 11.4 : Cross Product
+- L69161: Chapter 12 : 3 Dimensional Space
+- L69163: 12.1 : The 3-D Coordinate System
+- L69368: 12.2 : Equations of Lines
+- L69679: 12.3 : Equations of Planes
+- L69883: 12.4 : Quadric Surfaces
+- L70141: 12.5 : Functions of Several Variables
+- L70434: 12.6 : Vector Functions
+- L70864: 12.7 : Calculus with Vector Functions
+- L71238: 12.8 : Tangent and Normal Vectors
+- L71632: 12.9 : Arc Length with Vector Functions
+- L71914: 12.10 : Curvature
+- L72163: 12.11 : Velocity and Acceleration
+- L72368: 12.12 : Cylindrical Coordinates
+- L72466: 12.13 : Spherical Coordinates
+- L72854: Chapter 13 : Partial Derivatives
+- L72856: 13.1 : Limits
+- L73306: 13.2 : Partial Derivatives
+- L74076: 13.3 : Interpretations of Partial Derivatives
+- L74281: 13.4 : Higher Order Partial Derivatives
+- L74541: 13.5 : Differentials
+- L74621: 13.6 : Chain Rule
+- L75546: 13.7 : Directional Derivatives
+- L76144: Chapter 14 : Applications of Partial Derivatives
+- L76146: 14.1 : Tangent Planes
+- L76335: 14.2 : Gradient Vector
+- L76448: 14.3 : Relative Extrema
+- L76893: 14.4 : Absolute Extrema
+- L77403: 14.5 : Lagrange Multipliers
+- L78446: Chapter 15 : Multiple Integrals
+- L78448: 15.1 : Double Integrals
+- L78650: 15.2 : Iterated Integrals
+- L79593: 15.3 : Double Integrals over General Regions
+- L80813: 15.4 : Double Integrals in Polar Coordinates
+- L81683: 15.5 : Triple Integrals
+- L82329: 15.6 : Triple Integrals in Cylindrical Coordinates
+- L82646: 15.7 : Triple Integrals in Spherical Coordinates
+- L83147: 15.8 : Change of Variables
+- L84383: 15.9 : Surface Area
+- L84579: 15.10 : Area and Volume Revisited
+- L84664: Chapter 16 : Line Integrals
+- L84666: 16.1 : Vector Fields
+- L84897: 16.2 : Line Integrals - Part I
+- L85880: 16.3 : Line Integrals - Part II
+- L86322: 16.4 : Line Integrals of Vector Fields
+- L86632: 16.5 : Fundamental Theorem for Line Integrals
+- L86917: 16.6 : Conservative Vector Fields
+- L87464: 16.7 : Green's Theorem
+- L88219: Chapter 17 : Surface Integrals
+- L88221: 17.1 : Curl and Divergence
+- L88616: 17.2 : Parametric Surfaces
+- L89139: 17.3 : Surface Integrals
+- L89976: 17.4 : Surface Integrals of Vector Fields
+- L90841: 17.5 : Stokes' Theorem
+- L91197: 17.6 : Divergence Theorem
+
+---
+
+## calculus/practice-problems.pdf
+
+- L5777: Chapter 1 : Review
+- L5790: 1.1 : Functions
+- L6035: 1.2 : Inverse Functions
+- L6076: 1.3 : Trig Functions
+- L6142: 1.4 : Solving Trig Equations
+- L6239: 1.5 : Solving Trig Equations with Calculators, Part I
+- L6322: 1.6 : Solving Trig Equations with Calculators, Part II
+- L6371: 1.7 : Exponential Functions
+- L6391: 1.8 : Logarithm Functions
+- L6451: 1.9 : Exponential And Logarithm Equations
+- L6548: 1.10 : Common Graphs
+- L6637: Chapter 2 : Limits
+- L6639: 2.1 : Tangent Lines And Rates Of Change
+- L6932: 2.2 : The Limit
+- L7128: 2.3 : One-Sided Limits
+- L7213: 2.4 : Limit Properties
+- L7375: 2.5 : Computing Limits
+- L7506: 2.6 : Infinite Limits
+- L7644: 2.7 : Limits at Infinity, Part I
+- L7730: 2.8 : Limits at Infinity, Part II
+- L7816: 2.9 : Continuity
+- L7962: 2.10 : The Definition of the Limit
+- L8049: Chapter 3 : Derivatives
+- L8074: 3.1 : The Definition of the Derivative
+- L8111: 3.2 : Interpretation of the Derivative
+- L8206: 3.3 : Differentiation Formulas
+- L8300: 3.4 : Product and Quotient Rule
+- L8355: 3.5 : Derivatives of Trig Functions
+- L8406: 3.6 : Derivatives of Exponentials & Logarithms
+- L8454: 3.7 : Derivatives of Inverse Trig Functions
+- L8476: 3.8 : Derivatives of Hyperbolic Functions
+- L8496: 3.9 : Chain Rule
+- L8616: 3.10 : Implicit Differentiation
+- L8664: 3.11 : Related Rates
+- L8747: 3.12 : Higher Order Derivatives
+- L8797: 3.13 : Logarithmic Differentiation
+- L8866: Chapter 4 : Derivative Applications
+- L8889: 4.1 : Rates of Change
+- L8914: 4.2 : Critical Points
+- L8974: 4.3 : Minimum and Maximum Values
+- L9028: 4.4 : Finding Absolute Extrema
+- L9084: 4.5 : The Shape of a Graph, Part I
+- L9188: 4.6 : The Shape of a Graph, Part II
+- L9257: 4.7 : The Mean Value Theorem
+- L9282: 4.8 : Optimization
+- L9313: 4.9 : More Optimization
+- L9358: 4.10 : L'Hospital's Rule
+- L9440: 4.11 : Linear Approximations
+- L9465: 4.12 : Differentials
+- L9492: 4.13 : Newton's Method
+- L9519: 4.14 : Business Applications
+- L9594: Chapter 5 : Integrals
+- L9596: 5.1 : Indefinite Integrals
+- L9651: 5.2 : Computing Indefinite Integrals
+- L9851: 5.3 : Substitution Rule for Indefinite Integrals
+- L10022: 5.4 : More Substitution Rule
+- L10154: 5.5 : Area Problem
+- L10186: 5.6 : Definition of the Definite Integral
+- L10369: 5.7 : Computing Definite Integrals
+- L10608: 5.8 : Substitution Rule for Definite Integrals
+- L10783: Chapter 6 : Applications of Integrals
+- L10785: 6.1 : Average Function Value
+- L10808: 6.2 : Area Between Curves
+- L10854: 6.3 : Volume with Rings
+- L10884: 6.4 : Volume with Cylinders
+- L10924: 6.5 : More Volume Problems
+- L10963: 6.6 : Work
+- L11026: Chapter 7 : Integration Techniques
+- L11104: 7.1 : Integration by Parts
+- L11177: 7.2 : Integrals Involving Trig Functions
+- L11309: 7.3 : Trig Substitutions
+- L11423: 7.4 : Partial Fractions
+- L11490: 7.5 : Integrals Involving Roots
+- L11522: 7.6 : Integrals Involving Quadratics
+- L11558: 7.7 : Integration Strategy
+- L11576: 7.8 : Improper Integrals
+- L11704: 7.9 : Comparison Test for Improper Integrals
+- L11750: 7.10 : Approximating Definite Integrals
+- L11830: Chapter 8 : More Applications of Integrals
+- L11832: 8.1 : Arc Length
+- L11895: 8.2 : Surface Area
+- L11962: 8.3 : Center Of Mass
+- L11979: 8.4 : Hydrostatic Pressure and Force
+- L12013: 8.5 : Probability
+- L12111: Chapter 9 : Parametric and Polar
+- L12123: 9.1 : Parametric Equations and Curves
+- L12277: 9.2 : Tangents with Parametric Equations
+- L12318: 9.3 : Area with Parametric Equations
+- L12346: 9.4 : Arc Length with Parametric Equations
+- L12413: 9.5 : Surface Area with Parametric Equations
+- L12468: 9.6 : Polar Coordinates
+- L12544: 9.7 : Tangents with Polar Coordinates
+- L12567: 9.8 : Area with Polar Coordinates
+- L12586: 9.9 : Arc Length with Polar Coordinates
+- L12608: 9.10 : Surface Area with Polar Coordinates
+- L12632: 9.11 : Arc Length and Surface Area Revisited
+- L12683: Chapter 10 : Series and Sequences
+- L12685: 10.1 : Sequences
+- L12741: 10.2 : More on Sequences
+- L12789: 10.3 : Series - Basics
+- L12858: 10.4 : Convergence/Divergence of Series
+- L12936: 10.5 : Special Series
+- L13011: 10.6 : Integral Test
+- L13068: 10.7 : Comparison & Limit Comparison Test
+- L13166: 10.8 : Alternating Series Test
+- L13227: 10.9 : Absolute Convergence
+- L13266: 10.10 : Ratio Test
+- L13319: 10.11 : Root Test
+- L13360: 10.12 : Strategy for Series
+- L13378: 10.13 : Estimating the Value of a Series
+- L13433: 10.14 : Power Series
+- L13503: 10.15 : Power Series and Functions
+- L13544: 10.16 : Taylor Series
+- L13574: 10.17 : Applications of Series
+- L13600: 10.18 : Binomial Series
+- L13642: Chapter 11 : Vectors
+- L13644: 11.1 : Basic Concepts
+- L13672: 11.2 : Vector Arithmetic
+- L13706: 11.3 : Dot Product
+- L13753: 11.4 : Cross Product
+- L13803: Chapter 12 : 3D Space
+- L13805: 12.1 : The 3-D Coordinate System
+- L13827: 12.2 : Equations of Lines
+- L13858: 12.3 : Equations of Planes
+- L13890: 12.4 : Quadric Surfaces
+- L13930: 12.5 : Functions of Several Variables
+- L13972: 12.6 : Vector Functions
+- L14020: 12.7 : Calculus with Vector Functions
+- L14109: 12.8 : Tangent, Normal and Binormal Vectors
+- L14142: 12.9 : Arc Length with Vector Functions
+- L14184: 12.10 : Curvature
+- L14204: 12.11 : Velocity and Acceleration
+- L14221: 12.12 : Cylindrical Coordinates
+- L14252: 12.13 : Spherical Coordinates
+- L14318: Chapter 13 : Partial Derivatives
+- L14320: 13.1 : Limits
+- L14362: 13.2 : Partial Derivatives
+- L14426: 13.3 : Interpretations of Partial Derivatives
+- L14464: 13.4 : Higher Order Partial Derivatives
+- L14519: 13.5 : Differentials
+- L14541: 13.6 : Chain Rule
+- L14681: 13.7 : Directional Derivatives
+- L14743: Chapter 14 : Applications of Partial Derivatives
+- L14745: 14.1 : Tangent Planes
+- L14769: 14.2 : Gradient Vector
+- L14788: 14.3 : Relative Extrema
+- L14831: 14.5 : Lagrange Multipliers
+- L14875: Chapter 15 : Multiple Integrals
+- L14877: 15.1 : Double Integrals
+- L14893: 15.2 : Iterated Integrals
+- L15005: 15.3 : Double Integrals over General Regions
+- L15143: 15.4 : Double Integrals in Polar Coordinates
+- L15192: 15.5 : Triple Integrals
+- L15283: 15.6 : Triple Integrals in Cylindrical Coordinates
+- L15340: 15.7 : Triple Integrals in Spherical Coordinates
+- L15410: 15.8 : Change of Variables
+- L15502: 15.9 : Surface Area
+- L15526: 15.10 : Area and Volume Revisited
+- L15565: Chapter 16 : Line Integrals
+- L15567: 16.1 : Vector Fields
+- L15593: 16.2 : Line Integrals - Part I
+- L15728: 16.3 : Line Integrals - Part II
+- L15808: 16.4 : Line Integrals of Vector Fields
+- L15899: 16.5 : Fundamental Theorem for Line Integrals
+- L15951: 16.6 : Conservative Vector Fields
+- L16049: 16.7 : Green's Theorem
+- L16145: Chapter 17 : Surface Integrals
+- L16147: 17.1 : Curl and Divergence
+- L16193: 17.2 : Parametric Surfaces
+- L16224: 17.3 : Surface Integrals
+- L16278: 17.4 : Surface Integrals of Vector Fields
+- L16339: 17.5 : Stokes' Theorem
+- L16401: 17.6 : Divergence Theorem
