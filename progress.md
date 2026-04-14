@@ -1,12 +1,13 @@
 # Learning Progress
 
-Last updated: 2026-03-18 (Session 3)
+Last updated: 2026-04-14
 
 ---
 
 ## C Programming
 - **Source switch:** Primary source changed from K&R to Modern C (Gustedt, 2024). K&R demoted to exercises/reference. Added MES + Yiu as embedded sources.
-- Current: Session 1 — Modern C Ch 1–2 (Getting Started, Program Structure) — **in progress** (notes + problems written, ready to code)
+- Current: **mc03** — Modern C Ch 4 (Computations) — not started
+- Completed: mc01 (Ch 1–2), mc02 (Ch 3 — Control: problems 1–3 done, problem 4 skipped intentionally)
 - Previous work: K&R Ch. 1 material in `material/ch01-tutorial-intro/` (superseded, kept as reference)
 - Project state: Fresh start with Modern C chapter numbering (`material/mcXX-<name>/`, `projects/mcXX-<name>/`)
 
