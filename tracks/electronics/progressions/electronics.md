@@ -1,5 +1,11 @@
 # Electronics — Concept Progressions
 
+## Ch. 1 — Foundations (Problem 1.10)
+*New this session:*
+- Thévenin analysis workflow — kill voltage source (short), find R_Th = R_1 ∥ R_2 from output terminals
+- R_Th / R_load ratio — determines how much voltage sags under load; R_load >> R_Th means stiff source
+- Power in each branch — I_total from original circuit, then V²/R or I²R per resistor independently
+
 ## Ch. 1 — Foundations (Problems 1.7–1.9)
 *New this session:*
 - VOM meter movement — coil + magnet mechanism, 50μA full-scale deflection
