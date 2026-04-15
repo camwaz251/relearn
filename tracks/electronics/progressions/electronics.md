@@ -1,7 +1,16 @@
 # Electronics — Concept Progressions
 
-## Ch. 1 — Foundations
+## Ch. 1 — Foundations (Problems 1.7–1.9)
 *New this session:*
+- VOM meter movement — coil + magnet mechanism, 50μA full-scale deflection
+- Shunt resistor — parallel bypass for current measurement, R_shunt = V_movement / I_shunt
+- Series resistor — in-line drop for voltage measurement, R_series = (V_range - V_movement) / I_fullscale
+- Voltmeter loading — DMM/VOM input resistance forms divider with circuit R_Th, pulls reading down
+- 20,000 Ω/V spec — VOM input resistance = spec × range selected
+- Leakage resistance — insulation modeled as large resistor; measured by series DMM + known source
+- DMM as current sensor — high input resistance used as known series R to measure nA-range currents indirectly
+
+*Previously covered:*
 - Ohm's law (V=IR) — relates voltage, current, resistance
 - KCL / KVL — conservation of charge and energy in circuits
 - Resistors in series and parallel — combining resistances, shortcuts for mental math

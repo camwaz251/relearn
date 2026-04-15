@@ -16,9 +16,9 @@ Last updated: 2026-04-14
 - Last session: not started
 
 ## Electronics
-- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **notes written** (ready to read alongside book, work exercises, build Falstad circuits)
-- Next: Ch. 2 — Bipolar Transistors
-- Last session: 2026-03-18 — Ch. 1 notes + progressions created
+- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **working exercises** (problems 1.7–1.9 complete)
+- Next: Problem 1.10, then Ch. 2 — Bipolar Transistors
+- Last session: 2026-04-15 — problems 1.7–1.9, VOM movement, loading, leakage measurement
 
 ## Linux
 - Current: Ch. 4 — Control Access to Files — **material written** (summary, exercises, labs ready — work through on VM)
