@@ -119,7 +119,7 @@ b = c;
 **Comparison operators return `false` or `true` (Takeaway 4.4.1 #1, p. 38):**
 ```c
 size_t c = (a < b) + (a == b) + (a > b);   // always exactly 1
-size_t d = (a <= b) + (a >= b) - 1;         // always exactly 1
+size_t d = (a <= b) + (a >= b) - (a == b);  // always exactly 1
 ```
 
 **Logic operators `!`, `&&`, `||` return `false` or `true` (Takeaway 4.4.2 #1, p. 39):**
