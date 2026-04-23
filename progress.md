@@ -1,6 +1,6 @@
 # Learning Progress
 
-Last updated: 2026-04-15
+Last updated: 2026-04-23
 
 ---
 
@@ -16,9 +16,9 @@ Last updated: 2026-04-15
 - Last session: not started
 
 ## Electronics
-- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **working exercises** (problems 1.7–1.10 complete)
-- Next: Problem 1.11, then Ch. 2 — Bipolar Transistors
-- Last session: 2026-04-15 — problem 1.10, Thévenin equivalent applied to loaded voltage divider, power dissipation per resistor
+- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **working exercises** (problems 1.7–1.11 complete)
+- Next: Ch. 2 — Bipolar Transistors
+- Last session: 2026-04-23 — problem 1.11, maximum power transfer theorem (calculus proof, quotient rule, R_load = R_source)
 
 ## Linux
 - Current: Ch. 4 — Control Access to Files — **material written** (summary, exercises, labs ready — work through on VM)
