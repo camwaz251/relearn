@@ -1,38 +1,80 @@
-# Ch. 1.9–1.10 — Other Passive Components
-*Art of Electronics, pp. 56–65 (§1.9.1–1.10.1)*
+# Ch. 1.9 — Other Passive Components
+*Art of Electronics, pp. 56–64 (§1.9.1–1.9.5)*
 
 ---
 
 ## 1.9.1 Electromechanical Devices: Switches
 
-### Types
+### A. Toggle Switches
 
-**SPST (single-pole single-throw):** Simple on/off. One input, one output. The basic switch.
+**What it is:** The classic toggle switch comes in several configurations depending on number of poles and throws:
+- **SPST** — single-pole single-throw. One input, one output. Simple on/off.
+- **SPDT** — single-pole double-throw. One input, two possible outputs.
+- **DPDT** — double-pole double-throw. Two poles switched simultaneously.
 
-**SPDT (single-pole double-throw):** One input, two possible outputs. Selects between two connections. Used for "three-way" light switches, signal routing.
+Toggle switches are also available with "center OFF" positions and with up to four poles switched simultaneously. Toggle switches are always **break-before-make** — the moving contact never connects to both terminals at once (important in SPDT switches).
 
-**DPDT (double-pole double-throw):** Two SPDT switches mechanically ganged. Can reverse motor polarity, select between two signal paths simultaneously.
+**Figures 1.117 and 1.119** show common switch types and the standard schematic symbols.
 
-**Momentary (pushbutton):**
-- NO (normally open): open at rest, closes when pressed. Most common.
-- NC (normally closed): closed at rest, opens when pressed.
+**Where you see it in real hardware:** Panel controls, mode selection, power switches on instruments and enclosures.
 
-**Rotary:** Multiple positions. Two flavors:
-- Shorting (make-before-break): briefly connects old and new positions together while switching. Avoid for signal routing.
-- Non-shorting (break-before-make): disconnects old before connecting new. Preferred for signal routing.
+---
 
-**DIP switches:** Banks of tiny SPST switches on a package. Used for configuration — setting addresses, enabling features, selecting modes without reprogramming.
+### B. Pushbutton Switches
 
-### Contact Bounce
+**What it is:** Useful for momentary-contact applications. Drawn schematically as shown in Figure 1.120.
+- **NO (normally open, form A):** open at rest, closes when pressed.
+- **NC (normally closed, form B):** closed at rest, opens when pressed.
+- **SPDT (form C):** common terminal plus NC and NO terminals.
 
-When a mechanical switch closes, the contacts bounce several times before settling. Duration: 1–20ms depending on switch. A microcontroller sees this as many rapid keypresses.
+In the electrical (as opposed to electronic) industry: form A = SPST NO, form B = SPST NC, form C = SPDT. Momentary-contact switches are always break-before-make.
 
-**Debouncing solutions:**
-1. Hardware: RC lowpass filter (τ ≈ 5ms) on the switch input.
-2. Software: read the pin, wait 10–20ms, read again. Use only if both reads match.
-3. Hardware SR latch: single-pole double-throw switch with two NOR gates. Glitch-free.
+**Where you see it in real hardware:** Reset buttons, mode select, keyboard keys, limit switches in machines.
 
-> **Embedded tie-in:** Every physical button needs debouncing. The RC filter approach: 10kΩ pull-up + 10kΩ series resistor + 100nF cap to ground gives f_3dB ≈ 160Hz, settling in ~3ms. This is why buttons in firmware always require debounce logic — even "clean" switches bounce.
+> **Embedded tie-in:** Every physical button into a microcontroller needs debouncing — contacts bounce for 1–20 ms before settling. The MCU sees this as multiple rapid edges. Fix in hardware (RC lowpass) or software (read pin, wait 10–20 ms, read again).
+
+---
+
+### C. Rotary Switches
+
+**What it is:** Many poles, many positions. Often sold as kits with individual wafers and shaft hardware. Two flavors:
+- **Shorting (make-before-break):** briefly connects old and new positions together. Useful to prevent open circuits between switch positions (circuits can go wrong with unconnected inputs).
+- **Non-shorting (break-before-make):** disconnects old before connecting new. Required when the separate lines must never be connected to each other.
+
+Both types can be mixed on the same switch.
+
+**Rotary encoders:** A related device — an electromechanical panel-mounting device that creates N pulse pairs per full rotation of the knob. Available in mechanical-contact or electro-optical versions; typically 16 to 200 pulse pairs per revolution. Optical versions cost more but last indefinitely.
+
+**Where you see it in real hardware:** Multi-position mode selectors, channel selectors on instruments, audio source selectors.
+
+---
+
+### D. PC-Mounting Switches (DIP Switches)
+
+**What it is:** Little arrays of switches on PCBs. Called **DIP switches** (borrowing the DIP IC package name). Increasingly available in compact surface-mount packages. Common types (see Figure 1.118):
+- SPST arrays (side-action toggle, rocker, slide)
+- Coded rotary switches (hexadecimal output, 4-bit binary)
+- Jumper/header blocks with slide-on "shunts" as a simpler substitute
+
+**Where you see it in real hardware:** Board configuration — setting I²C addresses, enabling/disabling features, selecting operating modes without reprogramming.
+
+---
+
+### E. Other Switch Types / Ratings
+
+Hall-effect switches, reed switches, proximity switches. All switches carry maximum current and voltage ratings — a small toggle might be rated at 150V and 5A.
+
+**Critical point:** Inductive loads drastically reduce switch life due to arcing at turn-off. Always operate a switch *below* its maximum ratings.
+
+**Dry switching:** When switching low-level signals, use a switch designed for this. Many switches rely on substantial current flow to clean contact oxides — without it you get noisy, intermittent contact. Gold-plated contacts handle dry switching.
+
+---
+
+### F. Switch Circuit Example
+
+**Figure 1.121** shows a car door warning buzzer: the buzzer sounds if one OR the other door is open AND the driver is seated. Both door switches and the seat switch are SPST-NO. The circuit implements the logic OR and AND directly with switches.
+
+**Figure 1.122** shows the electrician's "three-way" switch: two SPDT switches wire a ceiling lamp so either of two entrances can turn it on or off. Generalized to N switches: two SPDTs and N−2 DPDTs.
 
 ---
 
@@ -40,128 +82,177 @@ When a mechanical switch closes, the contacts bounce several times before settli
 
 ### Electromechanical Relay (EMR)
 
-A coil energizes an electromagnet that physically pulls switch contacts together (or apart). Complete galvanic isolation between coil and contacts — allows a 3.3V MCU to switch a 120V AC circuit.
+**What it is:** An electrically controlled switch. A coil pulls an armature (to close contacts) when sufficient coil current flows. Available in "latching" and "stepping" varieties. Coil voltages from 3V up to 115V (ac or dc). "Mercury-wetted" and "reed" relays are intended for high-speed (~1 ms) applications. Giant relays switch thousands of amps for power utilities.
 
-**Key specs:**
-- Coil voltage: 3V, 5V, 12V, 24V, 115V
-- Coil current: 10–100mA (always too high for direct GPIO drive)
-- Contact rating: 1A, 5A, 10A, etc. at rated voltage
-- Contact forms: SPST-NO, SPDT, DPDT
+**Key specs to know:**
+- Coil voltage: 3V, 5V, 12V, 24V, 115V (ac or dc)
+- Contact forms: SPST-NO, SPDT, DPDT, latching
 
-**Always include a flyback diode across the coil** (cathode to +, anode to −). The coil is an inductor — opening the switch generates a kick. Always.
+**Where you see it in real hardware:** Anywhere you need complete **galvanic isolation** between control signal and switched circuit — a 3.3V MCU GPIO switching a 120V AC load. Also remote switching and high-voltage/high-current switching.
 
-**Driver circuit:** GPIO → BJT or MOSFET → Relay coil + flyback diode. The transistor provides current gain; the GPIO only sources/sinks a few mA to drive the transistor base/gate.
+> **Embedded tie-in:** GPIO cannot drive a relay coil directly (coil current 10–100 mA, GPIO max ~20 mA). Use a BJT or MOSFET driver. Always add a **flyback diode** across the coil (cathode to +V, anode to −): when the coil is de-energized its collapsing magnetic field generates a large reverse voltage spike that destroys transistors without the diode.
+
+---
 
 ### Solid-State Relay (SSR)
 
-LED + phototriac or photo-MOSFET. No mechanical parts, no contact bounce, no lifetime limit. Slower than mechanical relays for switching speed but much faster on/off (no bounce). Used for AC load switching (motor control, heating elements). Higher on-resistance than mechanical contacts.
+**What it is:** A semiconductor electronic switch turned on by an LED — no moving parts. SSRs operate rapidly, without contact bounce, and with no mechanical wear. They turn on AC power **at the moment of zero voltage** and turn off **at zero current** — this zero-crossing switching reduces electrical noise and EMI.
+
+**Trade-offs vs. EMR:**
+- Better: no bounce, no lifetime limit, faster, silent
+- Worse: higher cost, higher on-resistance than mechanical contacts
+
+**The book's view:** SSRs provide better performance and reliability than mechanical relays, at greater cost. Primary uses of relays (either type) are remote switching and high-voltage/high-current switching where isolation is essential. For lower-voltage signal switching inside a circuit, transistors (Ch. 2 and 3) are preferred over relays.
 
 ---
 
 ## 1.9.3 Connectors
 
-### Common Types
+**What connectors do:** Bring signals in/out of instruments, route signal and DC power between parts of an instrument, allow circuit boards and modules to be unplugged and replaced. The book notes connectors are usually "the most unreliable part" of any piece of electronic equipment.
 
-**BNC:** Coaxial, 50Ω or 75Ω. Quarter-turn bayonet lock. The standard for lab instruments (oscilloscopes, function generators, RF equipment).
+---
 
-**SMA/SMB:** Miniature coaxial. Screw or push-on. Common on RF PCBs, antennas, small instruments. Good to 18GHz (SMA).
+### A. Single-Wire Connectors
 
-**D-sub (DB-9, DB-15, DB-25):** Multi-pin connector with D-shaped shell. DB-9 = RS-232 serial. DB-25 = old parallel port. Still seen in industrial equipment.
+Simple **pin jack** or **banana jack** — used on multimeters, power supplies. Inexpensive but not as useful as shielded-cable or multiwire connectors. The humble **binding post** is another form.
 
-**Pin headers (0.1" / 2.54mm pitch):** The standard for development boards and prototyping. Male pins on PCB, female Dupont wires. 0.05" (1.27mm) pitch for dense boards.
+---
 
-**USB:** Type-A (host), Type-B (device), Micro-B (small devices), Type-C (modern, reversible). Carries power (5V, up to 100W with PD) and data.
+### B. Shielded-Cable Connectors
 
-**Edge connectors:** Fingers directly on PCB copper. Used in memory DIMMs, PCIe cards, cartridges. Zero connector cost — the connector is just the PCB edge.
+**BNC (bayonet Neill–Concelman):** The most popular shielded connector for instruments. Quarter-turn bayonet lock; adorns most instrument front panels. Connects shield (ground) and inner (signal) conductor simultaneously. Available in panel-mounting and cable-terminating varieties.
 
-**JST:** Small polarized connectors popular in RC models and LiPo battery packs. Common on dev board battery connectors.
+Related coaxial connectors:
+- **TNC** — threaded version of BNC. Close cousin, bulkier.
+- **Type N** — high-performance, bulky.
+- **SMA and SMB** — miniature coaxial; SMA common on RF PCBs and antennas.
+- **LEMO and SMC** — subminiature coaxial.
+- **MHV and SHV** — high-voltage coaxial.
 
-### Connector Design Rules
+**The phono jack ("RCA type"):** Used in audio equipment. The book calls it "a nice lesson in bad design" — the inner (signal) conductor mates *before* the shield when you plug it in, causing audible pops. The type-F coax "connector" (which uses the bare coax wire as the pin) is inducted into the book's "Components Hall of Infamy" (Figure 1.126).
 
-- Always include a keying mechanism (polarization) to prevent reverse insertion
-- Specify current rating with margin — a 3A connector running 3A will overheat
-- Coaxial connectors must match the system impedance (50Ω or 75Ω)
-- Mating cycles matter for connectors on frequently-swapped cables (USB: 10k cycles typical)
+**Figure 1.125** shows the full range of RF and shielded connectors: stereo phone jack, XLR, N, UHF, BNC, TNC, type F, MHV, SHV, audio connectors, LEMO, SMA, SMB, SC and ST (optical fiber).
+
+---
+
+### C. Multipin Connectors
+
+Electronic instruments demand multiwire cables. The book lists common types:
+- **IEC powerline cord connector** — simplest, three-wire
+- **Type-D subminiature (D-sub):** popular and reliable. DB-9, DB-25, DB-50. DB-9 = RS-232. Seen in industrial equipment.
+- **Winchester MRA series**
+- **MS type (MIL-C-5015)** — rugged military-spec, hundreds of configurations
+- **Flat ribbon cable + IDC** — mass-termination connectors, common on development boards
+
+**Figure 1.123** shows the staggering variety of rectangular multipin connectors: Molex-type power connectors, 0.1" dual-row box headers (with and without latch ejectors, Wire-Wrap tails), IDC ribbon connectors, single-row 0.1" headers, AMP MODU shells, terminal blocks, Faston spade lugs, USB, RJ-45, RJ-11, D-sub (DB-9, 26-pin high-density, DB-25), VME backplane, card-edge connectors, Centronics-type, Winchester shrouded, screw-terminal barrier blocks.
+
+**Warning:** Avoid connectors that can't tolerate being dropped on the floor (miniature hexagon connectors) or that lack a secure locking mechanism (Jones 300 series).
+
+---
+
+### D. Card-Edge Connectors
+
+**What it is:** The PCB edge itself serves as the connector. Gold-plated contacts at the board edge mate with a receptacle. Used for motherboard memory modules (DIMMs), PCIe cards, and VME backplane systems (Figure 1.123, upper right). May have 15 to 100+ connections.
+
+Connection options: solder to a motherboard/backplane, use standard solder-lug edge connectors, or use "two-part" PCB connectors where one part solders to the board and mates with the other part on the backplane. VME (VersaModule Eurocard) uses this system.
+
+---
+
+### Figures 1.124
+
+Circular connectors: MS-type (MIL-C-5015) rugged, Supericon 50A locking XLR, weatherproof (Switchcraft EN3), 12 mm video (Hirose RM), circular DIN, mini-DIN, 4-pin microphone, locking 6-pin (Lemo), microminiature 7-pin shielded (Microtech EP-7S), 2-pin shrouded (Litton SM), 2.5 mm power, banana, pin jack.
 
 ---
 
 ## 1.9.4 Indicators
 
-### LEDs
+### A. Meters
 
-Two-terminal light-emitting diode. Conducts light when forward biased. Forward drop is 1.5–3.5V depending on color (higher for blue/white, lower for red/infrared).
+Two main types for reading voltage or current:
+- **Moving-pointer (analog):** time-honored, less expensive, less accurate.
+- **Digital readout:** more expensive, more accurate.
 
-**Current-limiting resistor (always required):**
+Both types cover a wide variety of voltage and current ranges. Exotic panel meters read VUs (audio volume units), dB, expanded-scale AC volts (e.g., 105–130V), temperature (from a thermocouple), percentage motor load, frequency, etc. Digital panel meters often provide logic-level outputs for internal use by the instrument.
+
+**LCD/LED panel displays:** Increasingly, a dedicated meter is replaced by an **LCD** (liquid-crystal display) or **LED panel** with a meter-like pattern. A graphic LCD display module (§12.5.3) can offer the user a choice of "meters" according to the quantity being displayed, all under the control of an embedded controller (see Chapter 15).
+
+---
+
+### B. Lamps, LEDs, and Displays
+
+**Incandescent lamps:** Were the standard for front-panel indicators. Now largely replaced by LEDs.
+
+**LEDs:** Behave electrically like ordinary diodes, but with a forward voltage drop of:
+- 1.5–2 V for red, orange, and some green LEDs
+- 3.6 V for blue and high-brightness green (see Figure 2.8)
+
+Typically **2 mA to 10 mA** produces adequate brightness. LEDs are cheaper than incandescent lamps and last essentially forever. Available in four standard colors plus "white" (a blue LED with a yellow fluorescent coating). Come in panel-mounting packages; some have built-in current-limiting resistors.
+
+**The math:**
 ```
 R = (V_supply - V_LED) / I_LED
 
-Example: R = (3.3V - 2.0V) / 5mA = 260Ω → use 270Ω standard value
+Example: R = (5V - 2V) / 10mA = 300Ω
 ```
 
-Typical brightness: 2–20mA for indicators. High-brightness LEDs: 20–350mA.
+**LEDs for digital displays:** 7-segment numeric displays; 16-segment alphanumeric displays; dot-matrix displays. When more than a few digits or characters need to be displayed, **LCDs are generally preferred**: line-oriented arrays (e.g., 16 chars × 1 line, up to 40 chars × 4 lines), simple interface for sequential or addressable entry of alphanumeric characters and symbols. Inexpensive, low power, visible even in sunlight. Back-lit versions work in subdued light but are not low power. More on opto-electronic devices in §12.5.
 
-**Driving from GPIO:** Most MCUs can source/sink 4–20mA per pin. Check datasheet. With a 270Ω resistor from a 3.3V GPIO to an LED to ground:
-```
-I = (3.3V - 2.0V) / 270Ω ≈ 4.8mA    (fine for most GPIOs)
-```
-
-For driving multiple LEDs or high-brightness LEDs, use a transistor or LED driver IC.
+> **Embedded tie-in:** When driving an LED directly from a GPIO, check the pin's source/sink current limit in the datasheet. Most MCUs can source/sink 4–20 mA per pin. Always use a current-limiting resistor — never connect an LED to a GPIO without one. For multiple LEDs or high-brightness types, use a transistor or LED driver IC.
 
 ---
 
 ## 1.9.5 Variable Components
 
-### Potentiometers
+### A. Variable Resistors (Potentiometers)
 
-Three-terminal variable resistor. Wiper slides along a resistive track. Used as:
-- **Volume controls:** Audio signal divider
-- **Trim pots:** One-time calibration adjustment. Set it and forget it.
-- **Panel controls:** User-adjustable gain, frequency, etc.
+**What it is:** Also called volume controls, pots, or trimmers. Three-terminal variable resistor with a rotatable "wiper" contact sliding along a resistive track (Figure 1.127 shows the schematic symbol, with CW and CCW ends marked).
 
-**Don't use as precision resistors** — poor temperature stability, mechanical wear, and resolution. For precision adjustable values, use a fixed resistor + small trim pot in series.
+Classic panel type is the **2-watt AB potentiometer** — uses the same carbon-composition material as fixed resistors, with a rotatable wiper. Also available with ceramic or plastic resistive elements (improved characteristics). **Multiturn types** (3, 5, or 10 turns) have counting dials for improved resolution and linearity. **Ganged pots** — several independent sections on one shaft — available in limited variety for applications that need it. Figure 1.8 shows a representative selection.
 
-**Digital potentiometers:** IC with SPI/I²C control. Replace mechanical pots in systems where software-controlled resistance is needed.
+**Trimmer pots:** For use inside an instrument rather than on the front panel. Single-turn and multiturn styles, most intended for PCB mounting. For calibration adjustments of the "set-and-forget" type.
 
-### Varactors
+**Book's warning:** "Resist the temptation to use lots of trimmers in your circuits. Use good design instead."
 
-Diodes operated in reverse bias. Capacitance varies with reverse voltage (1–50pF typically). Used in:
-- **VCOs (voltage-controlled oscillators):** Tune frequency by varying reverse voltage
-- **PLLs:** The varactor in the VCO is the feedback element
-- **Automatic frequency control (AFC):** Compensate for drift without mechanical adjustment
+**Don't use a pot as a precision resistor:**
+- Pots are not as stable as 1% resistors
+- They may not have good resolution (can't be set to a precise value)
 
-**Intuition:** The depletion region in a reverse-biased diode acts as a dielectric. As reverse voltage increases, depletion region widens = more plate separation = less capacitance.
+**Correct approach for a precise settable resistance:** Use a 1% (or better) precision resistor in series with a small trimmer pot, with the fixed resistor contributing most of the resistance. Example: need 23.4 kΩ → use a 22.6 kΩ 1% fixed resistor in series with a 2 kΩ trim pot.
+
+**Digital potentiometers:** An all-electronic version using an array of transistor switches selecting taps along a chain of fixed resistors. Made as ICs by Analog Devices, Maxim/Dallas, and Xicor — up to 1024 steps, available as single or dual units, some **nonvolatile** (remember last setting after power-off). Application: consumer electronics (TV, stereo) where volume is adjusted by infrared remote control rather than by turning a knob; see §3.4.3E.
+
+**Other variable-resistance approaches:** FETs as voltage-controlled resistors (§3.2.7), optoresistors (§12.7), transistors as variable-gain amplifiers.
 
 ---
 
-## 1.10.1 Surface-Mount Technology (SMT)
+### B. Variable Capacitors
 
-### What it is
+**What it is:** Primarily confined to smaller capacitance values (up to about 1000 pF). Commonly used in RF circuits. Trimmer variable capacitors are available for in-circuit adjustments, in addition to the panel type for user tuning. Figure 1.128 shows the schematic symbol.
 
-Components soldered directly to pads on the PCB surface, rather than through holes. Dominates modern production — smaller, lower parasitic inductance, compatible with automated pick-and-place and reflow soldering.
+**Varactors (varicaps, epicaps):** Diodes operated with applied reverse voltage. The reverse-biased diode junction acts as a voltage-controlled capacitor.
 
-### Package Sizes (Passives)
+**Intuition:** The depletion region in a reverse-biased diode acts as the dielectric of a capacitor. Increasing reverse voltage widens the depletion region (more plate separation) → less capacitance. Decreasing reverse voltage narrows it → more capacitance.
 
-| Imperial code | Metric | Dimensions (mm) | Notes |
-|--------------|--------|-----------------|-------|
-| 0201 | 0603 | 0.6 × 0.3 | Microscopic. Machine only. |
-| 0402 | 1005 | 1.0 × 0.5 | Tiny. Tweezers + magnification. |
-| 0603 | 1608 | 1.6 × 0.8 | Common in production. |
-| 0805 | 2012 | 2.0 × 1.25 | Good for hand soldering. |
-| 1206 | 3216 | 3.2 × 1.6 | Easy to hand solder. |
-| 2512 | 6332 | 6.3 × 3.2 | Power resistors. |
+**Where you see it in real hardware:**
+- **PLLs (phase-locked loops):** The varactor in the VCO is the feedback element
+- **VCOs (voltage-controlled oscillators):** Tune frequency by varying reverse voltage
+- **AFC (automatic frequency control):** Compensate for frequency drift without mechanical adjustment
+- **Modulators and parametric amplifiers**
 
-**For learning/prototyping:** Use 0805 or 1206. 0603 is manageable with practice. Anything smaller requires solder paste and a hot plate or reflow oven.
+---
 
-### SMT ICs
+### C. Variable Inductors
 
-**SOT-23, SOT-89:** Small transistors and simple ICs. 3–6 pins. Manageable by hand.
+**What it is:** Usually made by moving a piece of core material within a fixed coil. Available with inductances ranging from microhenrys to henrys; typically a 2:1 tuning range for any given inductor. Also available: rotary inductors (coreless coils with a rolling contact).
 
-**SOIC:** Standard SMT IC package. 1.27mm pitch. Easy to hand solder.
+---
 
-**QFP/LQFP:** Fine-pitch IC packages (0.5mm, 0.8mm pitch). Requires steady hands and flux.
+### D. Variable Transformers
 
-**BGA (ball grid array):** No visible pins — balls underneath the package. Requires X-ray inspection and reflow. Not hand-solderable.
+**What it is:** Variable transformers operated from the 115V AC line. Usually configured as **autotransformers** — one winding with a sliding contact, so they are **not electrically isolated from the powerline**. Commonly called **Variacs** (General Radio's trade name; also made by Technipower, Superior Electric, and others). Figure 1.129 shows a classic 5A unit.
 
-**Intuition:** The trend toward smaller packages is driven by density and performance (shorter leads = less parasitic inductance = better at high frequencies). The downside is that prototyping requires breakout boards or hot-air rework stations. Most new ICs are available only in SMT packages — through-hole is legacy.
+**Output:** Typically 0 to 135V AC when operated from 115V. Available in ratings from 1 amp to 20 amps or more.
 
-> **Embedded tie-in:** When selecting components for a new design, check availability in SMT packages first. DIP through-hole parts are increasingly hard to find for modern ICs. 0805 resistors and capacitors, SOIC-8 for op-amps and regulators, SOT-23 for small transistors and LDOs — this combination covers most designs and is hand-solderable.
+**Where you see it in real hardware:** Testing instruments that need to be subjected to powerline variations; verifying worst-case performance.
+
+**Important Warning:** The Variac is NOT electrically isolated from the powerline — unlike a transformer. Treat the output as live mains.

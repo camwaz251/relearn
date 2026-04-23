@@ -5,46 +5,114 @@
 
 ## 1.5.1 Inductors
 
-### Fundamentals
+### Defining equation
 
-**What they are:** A coil of wire that stores energy in a magnetic field. The dual of a capacitor — where caps resist voltage changes, inductors resist current changes.
+**What it is:** An inductor is a coil of wire (Figure 1.50). Current flowing through it
+creates a magnetic field along the coil's axis. Any change in that field induces a
+voltage — called back EMF — that opposes the change (Lenz's law). This is the dual
+of a capacitor: for a cap, constant current produces a voltage ramp; for an inductor,
+constant voltage produces a current ramp.
 
 **The math:**
 ```
-V = L * dI/dt              (voltage proportional to rate of current change)
-U = ½LI²                   (stored energy in magnetic field)
+V = L * dI/dt                     (eq. 1.23)
 ```
+L is the inductance in henrys (H), or mH, µH, nH in practice. 1 V across 1 H
+produces a current that increases at 1 A/s.
 
-**Intuition:** An inductor tries to keep current flowing at a constant rate. Oppose any change — if current is rising, the inductor generates a voltage opposing the rise. If current is falling, it generates a voltage trying to maintain it.
+**Intuition:** Swap the roles of V and I relative to a capacitor. A capacitor resists
+voltage changes (constant current → voltage ramp). An inductor resists current changes
+(constant voltage → current ramp). Same math, different quantities.
 
-The famous "inductive kick": open a switch in series with an inductor, and it generates a large voltage spike to force the current to keep flowing — potentially hundreds of volts from a 12V supply. This is the same physics as a spark plug and why you always put a flyback diode across relay/motor coils.
+### Stored energy
 
-### Volt-Second Balance
+**What it is:** The energy invested in ramping up the current is stored internally in
+the magnetic field — not dissipated as heat. You get it back when you interrupt the
+current.
 
-**What it is:** In steady-state periodic operation, the average voltage across an ideal inductor must be zero over one full cycle. Otherwise the current ramps up without bound.
-
-**Intuition:** This is the key constraint in switching power converters. A buck converter alternately applies V_in and 0V across the inductor. For equilibrium:
+**The math:**
 ```
-V_in * D * T = V_out * T       (volt-seconds in = volt-seconds out for lossless case)
-→ V_out = D * V_in
+U_L = ½LI²                        (eq. 1.24)
 ```
-where D is duty cycle. This is why switching regulators can step voltage down (or up in a boost) with high efficiency — the inductor stores and releases energy without dissipating it.
+U_L in joules, L in henrys, I in amperes.
 
-### Combining Inductors
+**Intuition:** Same form as the capacitor energy formula (½CV²). This result is at the
+core of switching power conversion — the little black wall-wart power supplies and
+all switching regulators store energy in an inductor's magnetic field on each switching
+cycle and release it to the output. More on this in Chapter 9.
 
+### Inductance and coil geometry
+
+**What it is:** The inductance L of a coil equals the ratio of magnetic flux passing
+through the coil to the current that produces that flux (times an overall constant).
+It depends on coil geometry (diameter d, length l, number of turns n) and on the
+permeability of any core material used to concentrate the field.
+
+**The math:**
+
+Wheeler's formula (semi-empirical, accurate to 1% as long as l > 0.4d):
 ```
-Series:   L_total = L1 + L2 + ...          (like resistors)
-Parallel: 1/L_total = 1/L1 + 1/L2 + ...
+L ≈ K * (d²n²) / (18d + 40l)     µH
 ```
-(Assuming no mutual coupling between inductors.)
+where K = 1.0 for dimensions in inches, K = 0.395 for centimeters.
 
-### Real Inductor Limitations
+**Intuition:** Inductance scales with n². More turns → more flux per ampere → much
+higher inductance. This is why closely wound toroids achieve high inductance in a
+small package.
 
-- **DCR (DC resistance):** Wire has resistance. Causes I²R loss. Important for switching regulator efficiency.
-- **Saturation:** At high enough current, the core material saturates — inductance drops dramatically. Must operate below I_sat specified in datasheet.
-- **Self-resonant frequency (SRF):** Winding capacitance resonates with inductance. Above SRF, the "inductor" looks capacitive. Choose inductors with SRF well above your operating frequency.
+**Exercise 1.19:** Explain why L ∝ n² for a coil of n turns, maintaining fixed
+diameter and length as n is varied.
 
-> **Embedded tie-in:** Ferrite beads on MCU power pins look like inductors at RF frequencies — they filter high-frequency switching noise from the supply. They have high DCR (lossy by design) so they're not for energy storage, only for damping. The flyback diode across relay/solenoid coils is mandatory — without it, the inductive kick will destroy your MOSFET or BJT driver. Use a fast diode (Schottky or 1N4148) for speed, 1N4001–1N4007 for robust slow diodes.
+### Core materials and physical forms
+
+**What it is:** The "core" is a material inside the coil that increases inductance by
+multiplying the magnetic flux for a given current. The core's permeability is the
+multiplier.
+
+Core shapes seen in practice (Figure 1.51):
+- **Toroid** (doughnut) — encapsulated or bare, hermetically sealed variants
+- **Pot core** — a doughnut mold split horizontally in half; geometry confines the
+  field well
+- **Rod / solenoid** — simplest form; field extends outside the core
+- **Ferrite bead / ferrite-core choke** — used as RF choke or for noise suppression
+
+Core materials:
+- **Iron (and iron alloys, laminations, powder)** — high permeability, used at power
+  frequencies
+- **Ferrite** — gray, nonconductive, brittle; used at higher frequencies (RF)
+
+All core types are ways to multiply the inductance of a given coil geometry.
+
+**Where you see it in real hardware:** Switching regulators, RF chokes, ferrite beads
+on power supply pins. The book notes that practical inductors depart from ideal
+behavior — winding resistance, core losses, and self-capacitance are all real issues
+(covered in Chapter 1x and Chapter 9). Inductors are indispensable in switching power
+converters and in tuned LC circuits for RF.
+
+### Volt-second balance (preview)
+
+**What it is:** V = LdI/dt requires that the *average* voltage across an ideal inductor
+be zero in steady-state periodic operation. If it were not, the average current would
+rise without bound. This is the "volt-second balance rule."
+
+**Intuition:** In Figure 1.52A (synchronous buck converter), the left side of inductor
+L is alternately switched between V_in and ground at a 50% duty cycle. Volt-second
+balance then forces the average output voltage to equal half the input voltage:
+```
+V_out = ½ * V_in      (for 50% duty cycle buck)
+```
+The output capacitor C₂ smooths the switching into a steady DC. Unlike a resistive
+divider, this wastes no energy (the inductor stores and releases, not dissipates) —
+it is 100% efficient in the ideal case. This topology is called a synchronous buck
+converter.
+
+Figure 1.52B is the boost variant: volt-second balance requires the output to be
+*twice* the input voltage (for 50% duty cycle). This configuration is a synchronous
+boost converter. Buck and boost converters are covered extensively in Chapter 9.
+
+> **Embedded tie-in:** The 5 V → 3.3 V conversion on virtually every dev board is a
+> buck converter. A boost converter can generate a higher rail or a negative rail from
+> a single positive supply.
 
 ---
 
@@ -52,31 +120,54 @@ Parallel: 1/L_total = 1/L1 + 1/L2 + ...
 
 ### Fundamentals
 
-**What they are:** Two (or more) inductors sharing a common magnetic core. AC on the primary induces AC on the secondary through mutual inductance. Provides voltage/current scaling and galvanic isolation.
+**What it is:** A transformer consists of two closely coupled coils (primary and
+secondary) on a shared magnetic core (Figure 1.53). An AC voltage on the primary
+appears on the secondary, scaled by the turns ratio. Current scales inversely.
+Power is conserved.
 
 **The math:**
 ```
-V_sec / V_pri = N_sec / N_pri = n        (turns ratio)
-I_sec / I_pri = 1/n                       (current scales inversely — power in = power out)
-Z_reflected = n² * Z_load                (impedance seen by primary)
+V_sec / V_pri = N_sec / N_pri = n      (voltage scales with turns ratio)
+I_sec / I_pri = 1/n                    (current scales inversely)
+Z_reflected = n² * Z_load             (impedance seen by primary scales as n²)
 ```
 
-**Intuition:** Transformers trade voltage for current. Step up voltage (n>1) → step down current by same ratio. Power is conserved (ignoring losses). The impedance transformation (n²) is why transformers are used in audio output stages — a 4Ω speaker can be transformed to look like 4kΩ to a tube amplifier output that needs a high impedance load.
+**Intuition:** A step-up transformer (n > 1) gives higher voltage at lower current.
+A step-down transformer does the reverse. Efficiency is very high — output power is
+very nearly equal to input power. Jumping ahead: a transformer of turns ratio n
+increases the impedance by n². There is very little primary current if the secondary
+is unloaded.
 
-### Real Transformer Limitations
+**Where you see it in real hardware:**
+- **Power transformers** (50/60 Hz) — convert mains voltage (115 V) to a lower, useful
+  AC voltage and provide galvanic isolation. Outputs range from 1 V to several
+  thousand volts; current from milliamps to hundreds of amps. Typical instrument
+  transformers: 10–50 V secondary, 0.1–5 A.
+- **Switching power converters** — use transformer-based topologies (e.g., flyback)
+  at 50 kHz to 1 MHz for isolation in medical and industrial equipment.
+- **Audio and RF transformers** — signal-level; at RF, tuned transformers select a
+  narrow frequency band.
 
-- **Magnetizing inductance:** The primary draws current even with no secondary load, to maintain the magnetic flux. This is the "no-load current."
-- **Leakage inductance:** Not all flux from primary links to secondary — the uncoupled portion causes voltage drop under load and voltage spikes on switching.
-- **Core losses:** Hysteresis and eddy currents in the core dissipate power as heat. Proportional to frequency and flux density.
-- **DC blocks:** Transformers cannot pass DC — only AC. The primary appears as a short to DC (just winding resistance), but the secondary sees nothing.
+### Transformer non-idealities
 
-### Preview: Buck and Boost Converters
+**What it is:** The simple turns-ratio model ignores several real effects:
 
-(See Figure 1.52, p. 30)
+- **Magnetizing inductance** — the primary draws current even with no secondary load
+  (to maintain the magnetic flux in the core). This is a parallel inductance in the
+  model. It means a transformer cannot pass DC — the primary looks like a short to DC
+  (just winding resistance), but the secondary sees nothing.
+- **Leakage inductance** — not all flux from the primary links to the secondary. The
+  uncoupled portion is a series inductance that causes voltage drops under load and
+  voltage spikes on switching edges.
+- **Winding resistance, core losses, capacitance, magnetic coupling to surroundings**
+  — all degrade performance in demanding applications.
 
-- **Buck (step-down):** Switch alternately connects inductor between V_in and ground. Inductor + output cap smooth the switching into DC. V_out = D × V_in.
-- **Boost (step-up):** Inductor charges from V_in. When switch opens, stored energy is forced through a diode into the output cap. V_out = V_in/(1−D). Output is always > input.
+Inductors depart significantly from ideal behavior; capacitors are much closer to
+ideal in most circuit applications. These non-idealities are dealt with in Chapter 1x
+and Chapter 9.
 
-**Intuition:** These are not transformers but they perform a similar trade-off (voltage vs. current) using an inductor as the energy storage element instead of a magnetic core. Most modern electronics use switching regulators rather than linear regulators because efficiency can be 85–95% vs 30–60%.
+### Core material and frequency
 
-> **Embedded tie-in:** USB 5V → 3.3V on your dev board is almost certainly a buck converter. A boost converter generates the negative supply rail in some ADC/op-amp circuits that need ±supplies from a single +5V source. Isolated flyback converters (a transformer-based switching supply) provide galvanic isolation in medical devices and industrial equipment where ground loops are hazardous.
+High-frequency transformers (RF, switching supplies) must use special core materials
+or construction to minimize core losses. Low-frequency transformers (50/60 Hz mains)
+use large, heavy iron cores. The two kinds are generally not interchangeable.

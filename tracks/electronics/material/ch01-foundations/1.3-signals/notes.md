@@ -7,123 +7,220 @@
 
 ### What they are
 
-The fundamental AC waveform. Every periodic signal can be decomposed into sinusoids (Fourier's theorem). Linear circuits preserve sine shapes — a sine in always gives a sine out at the same frequency, possibly with different amplitude and phase. This is why frequency-domain analysis works.
+The most popular signals in electronics — what you get out of the wall plug. If someone says "take a 10μV signal at 1MHz," they mean a sinewave. Described mathematically as:
 
-**The math:**
 ```
-V(t) = A * sin(2πft + φ)
-     = A * sin(ωt + φ)
+V = A sin(2πft)         (eq. 1.10)
 
-ω = 2πf          (angular frequency, rad/s)
-f = 1/T           (frequency in Hz, T = period in seconds)
+A = amplitude
+f = frequency in Hz (cycles per second)
 ```
 
-**Key amplitude measures:**
+When you need to specify the value at t = 0, add a phase:
+
 ```
-V_rms = V_peak / √2 ≈ 0.707 * V_peak    (sinewaves only)
-V_pp  = 2 * V_peak
+V = A sin(2πft + φ)
 ```
 
-**Intuition:** V_rms is the DC-equivalent for power dissipation. A 1V_rms sinewave dissipates the same power in a resistor as 1V DC. US mains: 120V_rms = 170V_peak, 60Hz. European mains: 230V_rms = 325V_peak, 50Hz.
+The angular frequency form (equivalent, just cleaner in calculus):
+
+```
+V = A sin(ωt)
+
+ω = 2πf     (radians per second)
+```
+
+Just remember ω = 2πf and you won't go wrong.
+
+**Why sinewaves matter:** A linear circuit driven by a sinewave always responds with a sinewave — same frequency, possibly different amplitude and phase. No other periodic signal has this property. This is why circuits are described by their *frequency response*: how the circuit changes the amplitude of an applied sinewave as a function of frequency. A stereo amplifier should have a flat frequency response from 20 Hz to 20 kHz.
+
+**Intuition:** Sinewaves are the eigenfunctions of linear systems. Feed a sine in, get a sine out. Everything else (squares, ramps, pulses) is a sum of sinewaves — which is why Fourier analysis works.
+
+**Frequency ranges in practice:**
+- Typical electronics: a few Hz to a few tens of MHz
+- Down to 0.0001 Hz or lower with carefully built circuits
+- Up to ~2 GHz with special techniques; above that you're in microwave territory (waveguides, striplines)
+
+**Where you see it in real hardware:** AC mains (US: 120V_rms, 60Hz, amplitude = 170V; Europe: 230V_rms, 50Hz, amplitude = 325V). Audio signals. RF carriers. Clock signals (approximately).
+
+> **Embedded tie-in:** The rms value matters for power calculations. V_rms = A/√2 ≈ 0.707A for a sinewave. This is the DC-equivalent for heating — a 1V_rms sine dissipates the same power in a resistor as 1V DC. ADC inputs see the rms value when measuring AC signals.
 
 ---
 
 ## 1.3.2 Signal Amplitudes and Decibels
 
+### Amplitude measures
+
+Three ways to characterize amplitude:
+
+```
+Peak-to-peak (pp):   V_pp = 2A
+RMS:                 V_rms = A / √2 = 0.707 A     (sinewaves only)
+```
+
+RMS is the standard for power calculations. It is what a true-rms meter reads. For non-sinewave signals, the rms/peak ratio is different — using the sinewave formula on a square wave gives the wrong answer (use a true-rms meter).
+
 ### Decibels
 
-**What they are:** Logarithmic ratios for comparing signal levels. Used because circuits span many orders of magnitude, and human perception (hearing, vision) is logarithmic.
+**What they are:** Logarithmic ratios for comparing signal levels. Named after Alexander Graham Bell; the decibel (dB) is one-tenth of a bel. Used because signal ratios routinely span many orders of magnitude.
 
 **The math:**
+
 ```
-dB = 10 * log₁₀(P2/P1)     (power ratio)
-dB = 20 * log₁₀(A2/A1)     (amplitude/voltage ratio)
+dB = 10 log₁₀(P₂ / P₁)       (eq. 1.11 — power ratio)
+dB = 20 log₁₀(A₂ / A₁)       (eq. 1.12 — amplitude/voltage ratio)
 ```
-The factor of 20 (not 10) for voltage comes from P ∝ V², so log(V²) = 2·log(V).
 
-**Landmarks to memorize:**
+The factor of 20 vs. 10: power is proportional to voltage squared, so log(V²) = 2 log(V).
 
-| dB  | Voltage ratio | Power ratio | Memory hook         |
-|-----|--------------|-------------|---------------------|
-| 0   | 1×           | 1×          | No change           |
-| 3   | 1.41× (√2)   | 2×          | Double power        |
-| 6   | 2×           | 4×          | Double voltage      |
-| 10  | 3.16×        | 10×         | Decade in power     |
-| 20  | 10×          | 100×        | Decade in voltage   |
-| -3  | 0.707×       | 0.5×        | Half power (cutoff) |
-| -20 | 0.1×         | 0.01×       |                     |
+**Key landmarks:**
 
-**Intuition:** Only memorize +3, +6, +20. Everything else is addition:
-- +26dB = +20 + 6 = 10× × 2× = 20× voltage
-- +23dB = +20 + 3 = 10× × √2 ≈ 14× voltage
-- -6dB = half voltage = quarter power
+| dB  | Power ratio | Voltage ratio | Notes                    |
+|-----|-------------|--------------|--------------------------|
+| 0   | 1×          | 1×           | no change                |
+| 3   | 2×          | 1.41× (√2)  | double power             |
+| 6   | 4×          | 2×           | double voltage           |
+| 10  | 10×         | 3.16×        | decade in power          |
+| 20  | 100×        | 10×          | decade in voltage        |
+| -3  | 0.5×        | 0.707×       | half power (−3dB cutoff) |
+| -20 | 0.01×       | 0.1×         |                          |
 
-**Where you see it:** Filter rolloff specs (−3dB cutoff, −20dB/decade), amplifier gain, antenna gain, audio levels, cable attenuation, ADC dynamic range (each bit ≈ 6dB).
+**Intuition:** Only memorize +3, +6, +20. Combine by addition:
+- +26 dB = 20 + 6 → 10× × 2× = 20× voltage
+- +23 dB = 20 + 3 → 10× × √2 ≈ 14× voltage
+- −6 dB = half voltage, quarter power
 
-### dBm and Absolute References
+> **Exercise 1.12** (from book): Find voltage and power ratios for (a) 3 dB, (b) 6 dB, (c) 10 dB, (d) 20 dB.
 
-**dBm** = dB relative to 1mW into 50Ω. The standard in RF work.
-- 0dBm = 1mW = 223mV_rms into 50Ω
-- +30dBm = 1W
-- −10dBm = 100μW (typical RF signal generator output level)
+> **Exercise 1.13 — "Desert Island dBs":** Fill in the table of power ratios for 0–11 dB without a calculator. Hint: start at 10 dB, go down in steps of 3 dB, then back up. Replace 3.125 and relatives with π.
+
+### Absolute dB references
+
+Decibels alone are ratios. To express an absolute level, you specify the reference:
+
+- **dBV** — 0 dBV = 1 V rms. Common in audio line-level work.
+- **dBm** — 0 dBm = 1 mW into a specified load impedance. For RF: 50Ω (so 0 dBm = 0.22 V rms). For audio: 600Ω (so 0 dBm = 0.78 V rms). State which impedance or it's ambiguous.
+- **dBSPL** — 0 dB SPL = 20 μPa rms (threshold of hearing). Used in acoustics.
+- **dBm noise floor** — 0 dBm at room temperature in 1 Hz bandwidth ≈ −174 dBm/Hz (thermal noise floor of a resistor).
+
+**Where you see it:** Filter rolloff specs (−3 dB cutoff, −20 dB/decade), amplifier gain, RF link budgets, ADC dynamic range (each bit ≈ 6 dB), cable attenuation, antenna gain, audio levels.
+
+> **Embedded tie-in:** ADC effective number of bits (ENOB) maps directly to dB: 12-bit ADC ≈ 72 dB dynamic range. Each bit of resolution is ~6 dB.
 
 ---
 
-## 1.3.3 Other Signal Types
+## 1.3.3 Other Signals
 
-### Square Waves
-Alternates between two fixed levels. V_rms = V_peak (not V_peak/√2 — the √2 is for sinewave only). Rise time (10% to 90% transition) defines the bandwidth content. A fast edge contains high-frequency harmonics — this is why fast digital signals cause EMI.
+### A. Ramp
 
-### Triangle and Ramp Waves
-Sweep circuits, sawtooth oscillators. V_rms = V_peak/√3 for triangle wave.
+**What it is:** Voltage rising (or falling) at a constant rate (Figure 1.20A). Cannot go on forever — in practice it is approximated by a finite ramp (1.20B) or a periodic repeating ramp called a **sawtooth** (1.20C).
 
-### Noise
-Random thermal fluctuations. Every resistor generates Johnson noise:
+**Where you see it:** CRT horizontal sweep circuits. DAC output during a linear sweep. Integrator output with a constant input.
+
+### B. Triangle Wave
+
+**What it is:** A symmetrical ramp — rises at constant rate, then falls at constant rate (Figure 1.21). Close cousin of the ramp.
+
+**Where you see it:** Function generators. PWM triangle carrier waves. Some oscillator topologies.
+
+### C. Noise
+
+**What it is:** Signals of interest are often mixed with noise — random fluctuations. The most common type is **band-limited white Gaussian noise**: equal power per hertz in some band, with a Gaussian (bell-curve) distribution of instantaneous amplitudes. Generated by resistors (Johnson noise or Nyquist noise). It plagues sensitive measurements of all kinds.
+
+**The math:**
+
 ```
-V_noise_rms = √(4kTRB)      k = 1.38×10⁻²³ J/K, T in Kelvin, B = bandwidth
+Noise is characterized by power spectral density (power per hertz)
+or amplitude distribution.
+Johnson noise voltage (rms) across a resistor R:
+    V_n = √(4kTRB)
+    k = 1.38×10⁻²³ J/K,  T in Kelvin,  B = bandwidth in Hz
 ```
-At room temp, 1kΩ in 1MHz bandwidth: ≈4μV_rms. Can't be eliminated, only minimized by reducing R, T, or B.
 
-### Pulses
-Characterized by amplitude, width, repetition rate, duty cycle. Duty cycle = t_on / T_period. Average value = V_high × duty cycle.
+**Intuition:** You can't eliminate thermal noise, only reduce it by lowering R, T, or B. Noise adds in quadrature (rms sum), not directly.
 
-> **Embedded tie-in:** PWM is a fixed-amplitude pulse train with variable duty cycle. The "signal" is the average value, recoverable with a lowpass filter. UART idle is HIGH; start bit is a LOW pulse. I2C SDA/SCL are open-drain — the "signal" depends on which device is pulling low, with the pull-up resistor determining the HIGH level.
+**Where you see it:** Chapter 8 covers noise and low-noise design in detail.
+
+> **Embedded tie-in:** Every resistor in an ADC input network contributes Johnson noise. Minimize input resistance and bandwidth to improve SNR.
+
+### D. Square Wave
+
+**What it is:** Alternates between two fixed voltage levels (Figure 1.23). Characterized by amplitude, frequency, and phase. Unlike a sinewave, a linear circuit driven by a square wave rarely responds with a square wave.
+
+```
+For a square wave: V_peak = V_rms   (peak and rms amplitudes are equal)
+```
+
+The edges of a real square wave are not perfectly square. **Rise time t_r** is the time for the signal to go from 10% to 90% of its total transition (Figure 1.24). In typical circuits, rise time ranges from a few nanoseconds to a few microseconds.
+
+**Intuition:** A fast edge contains high-frequency harmonics. This is why fast digital signals cause EMI. Rise time and bandwidth are inversely related: BW ≈ 0.35 / t_r.
+
+> **Embedded tie-in:** SPI/I2C clock edges, UART transitions — all square waves. Slow rise times mean slower maximum bit rate. PCB trace capacitance directly limits rise time.
+
+### E. Pulses
+
+**What it is:** Signals like Figure 1.25 — defined by amplitude and pulse width. A periodic train of pulses has a frequency (repetition rate) and a **duty cycle**: ratio of pulse width to repetition period, from 0 to 100%.
+
+Pulses can be positive or negative polarity, and "positive-going" or "negative-going."
+
+**Intuition:** Average value of a pulse train = V_high × duty cycle. The "signal" in PWM is this average value.
+
+> **Embedded tie-in:** PWM is a fixed-amplitude pulse train with variable duty cycle. Average value recovered with a lowpass filter. UART idle is HIGH; start bit is a LOW pulse. I2C SDA/SCL are open-drain — pull-up resistor sets the HIGH level.
+
+### F. Steps and Spikes
+
+**What it is:** Idealized waveforms useful for describing circuit behavior (Figure 1.26). A **step** is a sudden transition from one level to another — it is one half of a square wave. A **spike** is a jump of vanishingly short duration.
+
+**Where you see it:** Step response characterizes how a circuit handles sudden changes (rise time, overshoot, ringing). Spikes appear from switching transients, ESD events, inductive kickback.
+
+> **Embedded tie-in:** Inductive loads (relays, motors) generate voltage spikes when switched off. A flyback diode clamps the spike. Without it, the spike can exceed 100V and destroy FET gate oxide.
 
 ---
 
 ## 1.3.4 Logic Levels
 
-### What they are
-Digital circuits use predefined voltage windows for HIGH (1) and LOW (0). The gap between guaranteed output levels and required input thresholds is the **noise margin** — the amount of corruption the signal can tolerate.
+**What they are:** Pulses and square waves dominate digital electronics. Predefined voltage levels represent one of two states at any point in a digital circuit — HIGH (1) and LOW (0), corresponding to the Boolean true and false.
 
-**Example — 3.3V LVCMOS:**
+**Key point from the book:** Precise voltages are not necessary. You only need to distinguish which of the two possible states is present. Each digital logic family specifies legal HIGH and LOW states.
+
+**Example — 74LVC logic family (from book):**
 ```
-V_OH (output high, min): 2.4V
-V_OL (output low, max):  0.4V
-V_IH (input high, min):  1.5V
-V_IL (input low, max):   0.8V
-
-Noise margin HIGH = V_OH_min - V_IH_min = 2.4 - 1.5 = 0.9V
-Noise margin LOW  = V_IL_max - V_OL_max = 0.8 - 0.4 = 0.4V
+Supply: +3.3V
+Output LOW:  typically 0V (can be as much as 0.4V away from 0V)
+Output HIGH: typically 3.3V (can be as much as 0.4V away from 3.3V)
+Input decision threshold: 1.5V
 ```
 
-**Intuition:** The output window is always *inside* the input window — this gives margin for noise on the line. A 5V signal driving a 3.3V input violates V_IH max and can damage the input or latch up the chip.
+**Intuition:** The gap between guaranteed output levels and required input thresholds is the noise margin — how much corruption the signal can absorb before the receiver misreads it. Output window is always inside the input window.
 
-> **Embedded tie-in:** Level shifting between 3.3V and 5V logic requires either resistor dividers (unidirectional, slow), dedicated level shifter ICs, or open-drain + pull-up to the target voltage. The STM32 accepts 5V-tolerant inputs on certain pins — check the datasheet pin-by-pin.
+The book notes there is much more to say about logic levels — Chapters 10 through 12 cover this in detail.
+
+> **Embedded tie-in:** Mixing logic families (3.3V and 5V) requires level shifting. A 5V signal on a 3.3V input can violate input thresholds and damage the device. Check the datasheet for 5V-tolerant pins — not all pins are tolerant even on devices advertised as such (e.g., STM32).
 
 ---
 
 ## 1.3.5 Signal Sources
 
-### Thévenin Model of a Signal Source
+**What they are:** For test purposes, a flexible external signal source is invaluable. Three types:
 
-Every real signal source has an output impedance R_out (its Thévenin resistance). The signal it delivers to a load depends on the voltage divider formed by R_out and R_load.
+### A. Signal Generators
 
-**Intuition:** A function generator with 50Ω output impedance connected to a 50Ω load delivers half its open-circuit voltage. The same generator driving a 10kΩ scope probe delivers ~99.5% of its open-circuit voltage. For signal fidelity, you want R_load >> R_source. For power transfer, you want them equal.
+Sinewave oscillators. Equipped to cover a wide frequency range with precise control of amplitude (using a resistive attenuator network). Some allow AM or FM modulation. Sweep generators vary frequency over a range — used for testing filters and frequency-dependent circuits.
 
-**Common source impedances:**
-- Function generator output: 50Ω
-- Op-amp output: <1Ω to ~100Ω
-- Microphone (dynamic): 150–600Ω
-- Microphone (condenser): 200Ω with phantom power
-- ADC input (sample-and-hold): 1k–10kΩ during acquisition
+For many generators the source is a **frequency synthesizer**: generates sinewaves with digitally settable frequency, often to 8 significant figures. Internally derived from a quartz-crystal oscillator, rubidium standard, or GPS-derived oscillator. Example: Stanford Research Systems SG384, 1 μHz to 4 GHz, −110 dBm to +16.5 dBm, with AM/FM/ΦM modulation. Cost ~$4,600.
+
+### B. Pulse Generators
+
+Make pulses only — but with full control of pulse width, repetition rate, amplitude, polarity, and rise time. Fastest units reach gigahertz pulse rates. Many allow programmable patterns (also called pattern generators). Contemporary units provide logic-level outputs for direct connection to digital circuitry.
+
+### C. Function Generators
+
+The most flexible of the three. Can generate sine, triangle, and square waves over a wide frequency range (0.01 Hz to 30 MHz is typical), with amplitude and DC offset control. Most provide frequency sweeping.
+
+Contemporary function generators are synthesized digital instruments — they combine the stability of a frequency synthesizer with the waveform flexibility of a function generator, and allow you to program arbitrary waveforms by specifying amplitude at equally spaced time points.
+
+**Example (from book):** Tektronix AFG3102 — sine and square to 100 MHz, pulses and "noise" to 50 MHz, arbitrary waveforms up to 128k points, five modulation types, sweep, burst modes. Cost ~$5k.
+
+**Intuition:** If you only have one signal source on your bench, get a function generator. It does sine, square, triangle, and arbitrary — enough for almost any test situation.
+
+> **Embedded tie-in:** Function generators are how you test analog front-ends before the real sensor is connected. Inject a known sine to verify gain and frequency response of an ADC input filter. Use a square wave to check rise time and settling behavior.
