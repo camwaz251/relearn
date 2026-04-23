@@ -32,16 +32,37 @@ progressions/       — skill/concept progression tracking
 
 ## Workflow Per Chapter
 
+### Step 1 — Plan
 1. User says which chapter.
-2. **Enter plan mode first.** Read the chapter ToC from Art of Electronics, plan the section breakdown, confirm with user before writing anything.
-3. For each top-level section (e.g., 1.2, 1.3), write `material/chXX-<name>/sX.Y-<name>/notes.md`.
-4. For each section, create `problems.md` — stub all in-chapter exercises for that section with **Problem:**, **My work:**, **Answer:** fields.
-5. Create `exercises/problems.md` — stub all Additional Exercises at the end of the chapter.
-6. Create `review/notes.md` — condensed one-page summary of the whole chapter.
-7. Append new concepts to `progressions/electronics.md`.
-8. User reads section notes instead of the dense book.
-9. User works exercises; fill in **My work** and **Answer** as they complete each one.
-10. User builds circuits in Falstad, exports .txt to `simulations/`.
+2. **Enter plan mode first.** Read the chapter ToC from the PDF, identify all top-level sections (e.g., 2.1, 2.2, 2.3). Present the section breakdown and confirm with user before writing anything.
+
+### Step 2 — Create structure
+3. Create `material/chXX-<name>/` with one subfolder per top-level section, plus `exercises/` and `review/`.
+4. PDF page offset: find it by reading a known page (e.g., the ToC) and comparing book page number to PDF page number. Record it — all agents need it.
+
+### Step 3 — Write notes (one agent per section, all in parallel)
+5. **Launch one background agent per section.** Each agent must:
+   - Read its assigned PDF pages (book page + offset = PDF page)
+   - Write `notes.md` based strictly on what those pages say — not from memory
+   - Cover every numbered subsection
+   - Follow the notes format below
+   - Include embedded/firmware tie-ins where relevant
+6. Do NOT write notes from memory or prior knowledge. Every agent reads the source.
+
+### Step 4 — Write problems stubs
+7. For each section, create `problems.md` — stub all in-chapter exercises found in the PDF with **Problem:** (from book text), **My work:**, **Answer:** fields.
+8. Create `exercises/problems.md` — stub all Additional Exercises at chapter end.
+
+### Step 5 — Review and finalize
+9. Create `review/notes.md` — condensed one-page summary of the whole chapter.
+10. Append new concepts to `progressions/electronics.md`.
+11. Commit and push.
+
+### During sessions (working exercises)
+12. User reads section notes instead of the dense book.
+13. User works exercises; fill in **My work** and **Answer** as they complete each one.
+14. User builds circuits in Falstad, exports .txt to `simulations/`.
+15. Update `../../progress.md` after each session.
 
 ---
 
