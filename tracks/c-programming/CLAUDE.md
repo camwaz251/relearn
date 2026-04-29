@@ -145,11 +145,26 @@ Each problem has two sections — thought process first, then the problem:
 3. <What C mechanism or pattern fits here? Why?>
 4. <Edge cases or gotchas to think about before writing a line>
 
+**Man pages:** <1–3 relevant pages, e.g. `man 3 printf` (format specifiers), `man 7 operator` (precedence). Skip if none apply.>
+
 <problem statement>
+
+**Compile:** `gcc -Wall -Wextra -g -std=c2x -o X X.c`
+
+**Vim workflow:** <general guidance tied to the shape of this problem and the thought process — e.g. "this one has nested switch blocks, so `]]`/`[[` to jump between them and `V` + `>` to re-indent case bodies". Do NOT give line-specific commands like "jump to line 42".>
+
+**GDB workflow:** <general debugging approach tied to what can go wrong in this problem — e.g. "the state transitions are the interesting surface, so `display current_state` or `watch current_state` catches unexpected jumps". Do NOT hard-code line numbers.>
 ```
 
 The thought process is a scaffold, not a solution. It should teach the user how to approach
 C problems systematically — especially the habit of thinking before typing.
+
+**Vim/GDB workflow rules:**
+- Use ONLY commands already introduced in `progressions/vim.md` and `progressions/gdb.md` through the current session.
+- Keep it general — "use `watch` when you want to catch a value changing unexpectedly" is good; "`break debounce.c:34`" is too specific and assumes the user's code layout.
+- Tie the guidance to the problem's shape (what functions exist, what state matters, what could go wrong) — build off the thought process, not the exact source text.
+
+**Man pages rule:** List 1–3 man pages that directly help with this problem. Common useful ones: `man 3 printf` (format specifiers), `man 7 operator` (C operator precedence), `man 3type uint8_t` (fixed-width types on Linux), `man 3 memcpy`, etc. If nothing genuinely helps, omit the line — don't pad.
 
 ---
 
