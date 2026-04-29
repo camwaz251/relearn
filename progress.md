@@ -16,9 +16,9 @@ Last updated: 2026-04-28
 - Last session: not started
 
 ## Electronics
-- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **working exercises** (problems 1.7–1.11 complete)
-- Next: Ch. 2 — Bipolar Transistors
-- Last session: 2026-04-23 — problem 1.11, maximum power transfer theorem (calculus proof, quotient rule, R_load = R_source)
+- Current: Art of Electronics Ch. 1 — Foundations of Circuit Analysis — **working exercises** (problems 1.7–1.13 complete)
+- Next: Ex. 1.14 (§1.4 Capacitors and AC Circuits)
+- Last session: 2026-04-29 — Ex. 1.12 (dB voltage/power ratios), Ex. 1.13 (Desert Island dBs table); all in-chapter problem statements filled in from PDF
 
 ## Linux
 - Current: Ch. 4 — Control Access to Files — **material written** (summary, exercises, labs ready — work through on VM)
