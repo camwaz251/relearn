@@ -31,9 +31,9 @@ These are the primary sessions. Pace is set by your work reading.
 
 | Session | Modern C Ch. | Topic | Status | Needed before |
 |---------|-------------|-------|--------|--------------|
-| mc02 | Ch 3 | Control (if/else, switch, loops) | ready | ms07 Interrupts |
-| mc03 | Ch 4 | Computations (bitwise, shifts, masks) | ready | ms10 Clock Tree |
-| mc04 | Ch 5 | Values and Data (stdint, volatile, const, float) | ready | ms12 ADC |
+| mc02 | Ch 3 | Control (if/else, switch, loops) | done | ms07 Interrupts |
+| mc03 | Ch 4 | Computations (bitwise, shifts, masks) | done | ms10 Clock Tree |
+| mc04 | Ch 5 | Values and Data (stdint, volatile, const, float) | in-progress | ms12 ADC |
 | mc05 | Ch 6 | Derived Types (structs, typedef, enum, arrays, pointers) | ready | ms06 GPIO |
 | mc06 | Ch 7 | Functions | not started | ms08 UART |
 | mc07 | Ch 8 | C Library | not started | ms08 UART |
