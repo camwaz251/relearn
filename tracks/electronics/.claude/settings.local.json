@@ -15,7 +15,10 @@
       "Bash(.venv/bin/python:*)",
       "Bash(qpdf --show-pages /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp)",
       "Bash(qpdf --json /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp --json-key=pagelabels)",
-      "Bash(qpdf --show-outline /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp)"
+      "Bash(qpdf --show-outline /home/cam/Documents/Encyclopedia-of-Electronic-Circuits-Vol.1.pdf.tmp)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }

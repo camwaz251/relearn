@@ -16,10 +16,15 @@
 **Task:** Write `type_audit.c` that:
 - Prints a neat table of type name, size in bytes, and min/max values using `<limits.h>` and `<stdint.h>` macros (`UINT8_MAX`, `INT32_MIN`, `INT32_MAX`, etc.)
 - Includes: `char`, `unsigned char`, `short`, `int`, `long`, `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t`, `int32_t`, `float`, `double`, `void *`
-- Format: `%-12s %2zu bytes   max=%llu` (right-pad name, show size, show max where applicable)
+- For signed integer types: print both min and max — use `%lld` for both (cast the macro to `long long`)
+- For unsigned integer types: min is always 0, print max only — use `%llu` (cast to `unsigned long long`)
+- For `float`/`double` and `void *`: print size only — no min/max row needed
+- Example row formats:
+  - Signed:   `%-16s %2zu bytes   min=%-20lld max=%lld`
+  - Unsigned: `%-16s %2zu bytes   max=%llu`
 - Compile: `gcc -Wall -Wextra -g -std=c2x -o type_audit type_audit.c`
 
-**Man pages:** `man 3 printf` (`%zu` for `size_t`, length modifiers `l`/`ll`/`hh` for fixed-width values), `man 0p stdint.h` (`UINT8_MAX`, `INT32_MIN`, etc.), `man 0p limits.h` (`INT_MAX`, `LONG_MIN`, etc.).
+**Man pages:** `man 3 printf` (`%zu` for `size_t`, `%lld` for signed 64-bit, `%llu` for unsigned 64-bit, length modifiers `l`/`ll`/`hh`), `man 0p stdint.h` (`UINT8_MAX`, `INT32_MIN`, etc.), `man 0p limits.h` (`INT_MAX`, `LONG_MIN`, etc.). Cast macros explicitly — `(long long)INT32_MIN` and `(unsigned long long)UINT32_MAX` — so the format specifier and the value always match.
 
 **Vim workflow:** Long table of near-identical `printf` calls — write one row, `yy` then `p` to duplicate, then `r` on a single character of the type name to flip `int` → `long` or `8` → `16`. When you realize halfway through that you'd rather use `uint32_t` everywhere instead of `unsigned int`, the new mc04 command `:%s/unsigned int/uint32_t/gc` lets you swap interactively with confirmation. `gd` on a `UINT8_MAX` jumps to its declaration in the header (handy when you want to verify what a macro actually expands to).
 
